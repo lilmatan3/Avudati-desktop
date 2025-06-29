@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>טיפים</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 26px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .category-card {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+      font-size: 18px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .category-card:hover {
+      background-color: #ffe3ec;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="index.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <!-- כותרת -->
+  <h1 class="subheader">טיפים</h1>
+
+  <!-- קטגוריות -->
+  <div class="category-grid">
+    <div class="category-card" onclick="location.href='tips-tax.html'">מס הכנסה</div>
+    <div class="category-card" onclick="location.href='tips-bituach.html'">ביטוח לאומי</div>
+    <div class="category-card" onclick="location.href='tips-employee.html'">עובד שכיר</div>
+    <div class="category-card" onclick="location.href='tips-freelance.html'">עצמאי / פרילנסר</div>
+    <div class="category-card" onclick="location.href='tips-finance.html'">התנהלות כלכלית אישית</div>
+    <div class="category-card" onclick="location.href='tips-invest.html'">השקעות וחסכונות</div>
+    <div class="category-card" onclick="location.href='tips-jobsearch.html'">מציאת עבודה</div>
+    <div class="category-card" onclick="location.href='tips-business.html'">עסקים וחברות</div>
+    <div class="category-card" onclick="location.href='tips-pension.html'">פנסיה וגמל</div>
+    <div class="category-card" onclick="location.href='tips-house.html'">קניית דירה / משכנתא</div>
+    <div class="category-card" onclick="location.href='tips-zchuyot.html'">זכויות מיוחדות</div>
+  </div>
+
+</body>
+</html>

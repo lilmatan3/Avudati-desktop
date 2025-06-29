@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>עסקים וחברות</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">עסקים וחברות</h1>
+
+  <div class="card-grid">
+<div class="card-grid">
+
+  <div class="tip-card">
+    <h3>פתיחת עוסק מורשה / פטור</h3>
+    <p>מה ההבדל בין עוסק פטור לעוסק מורשה? איך פותחים תיק ומה חשוב לדעת?</p>
+    <button onclick="openPopup('popup1')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>הקמת חברה בע"מ</h3>
+    <p>מתי כדאי להפוך לחברה בע"מ? יתרונות, חסרונות, תהליך פתיחה</p>
+    <button onclick="openPopup('popup2')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>בחירת רו"ח / יועץ מס</h3>
+    <p>האם לבחור רואה חשבון או יועץ מס? מה ההבדל ואיך בוחרים נכון?</p>
+    <button onclick="openPopup('popup3')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>ניהול ספרים</h3>
+    <p>מה זה אומר לנהל ספרים? למי זה חובה, ומה זה כולל בפועל?</p>
+    <button onclick="openPopup('popup4')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>חשבוניות והוצאות</h3>
+    <p>איך מתעדים נכון הוצאות והכנסות? מה ההבדל בין קבלה לחשבונית?</p>
+    <button onclick="openPopup('popup5')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>דוחות שנתיים</h3>
+    <p>מה זה דוח שנתי? מי מגיש אותו ומתי? ומה הסיכון אם שוכחים?</p>
+    <button onclick="openPopup('popup6')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מקדמות מס</h3>
+    <p>איך קובעים מקדמות למס הכנסה ומע"מ? ומה קורה אם ההכנסה משתנה?</p>
+    <button onclick="openPopup('popup7')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>העסקת עובדים</h3>
+    <p>מהן החובות שלך כמעסיק? שכר, ביטוח לאומי, פנסיה ודיני עבודה</p>
+    <button onclick="openPopup('popup8')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>הנה"ח דיגיטלית</h3>
+    <p>אילו כלים קיימים לניהול חשבונות באינטרנט? מה חובה ומה מומלץ?</p>
+    <button onclick="openPopup('popup9')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>אשראי לעסק קטן</h3>
+    <p>איך מגישים בקשה לאשראי או הלוואה לעסק? ומה חשוב להכין מראש?</p>
+    <button onclick="openPopup('popup10')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מענקים לעסקים</h3>
+    <p>האם אתה זכאי למענק? אילו סוגים קיימים ואיך בודקים זכאות?</p>
+    <button onclick="openPopup('popup11')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>בדיקת רווחיות</h3>
+    <p>איך יודעים אם העסק באמת רווחי? ומה צריך לבדוק כל חודש?</p>
+    <button onclick="openPopup('popup12')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>שיווק דיגיטלי</h3>
+    <p>איך לפרסם נכון בפייסבוק, גוגל ואינסטגרם? יצירת תוכן שמביא לקוחות</p>
+    <button onclick="openPopup('popup13')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>סגירת עסק</h3>
+    <p>איך סוגרים עוסק פטור, מורשה או חברה בלי להיתקע עם חובות או קנסות?</p>
+    <button onclick="openPopup('popup14')">לפרטים</button>
+  </div>
+
+</div>
+
+<!-- popup1: פתיחת עוסק מורשה / פטור -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>📂 פתיחת עוסק מורשה / פטור</h2>
+    <p>
+      פתיחת עוסק פטור או מורשה תלויה בגובה ההכנסות ובסוג העיסוק.<br><br>
+      <strong>עוסק פטור</strong> – הכנסה שנתית עד כ־120,000 ₪, לא גובה מע"מ, מתאים לעסקים קטנים.<br>
+      <strong>עוסק מורשה</strong> – ללא תקרת הכנסה, חייב בגביית ודיווח מע"מ, מתאים לעסקים גדולים או מקצועות שמחייבים.<br><br>
+      יש לפתוח תיק במע"מ, מס הכנסה וביטוח לאומי – רצוי בעזרת יועץ מס או דרך ממשק דיגיטלי.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: הקמת חברה בע"מ -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>🏢 הקמת חברה בע"מ</h2>
+    <p>
+      חברה בע"מ (בערבון מוגבל) היא ישות משפטית נפרדת ממך, ולכן יש לה יתרונות:
+      <ul>
+        <li>הפרדה בין נכסים אישיים לעסקיים</li>
+        <li>אפשרות לצמיחה והעסקת עובדים</li>
+        <li>תדמית מקצועית</li>
+      </ul>
+      מצד שני – כרוכה בעלויות ודיווח מורכב יותר.  
+      רלוונטית בעיקר למי שמרוויח מעל כ־350,000 ₪ בשנה, או עובד עם לקוחות גדולים.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: בחירת רו"ח / יועץ מס -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>👨‍💼 בחירת רו"ח / יועץ מס</h2>
+    <p>
+      רואה חשבון מוסמך מתאים לעסקים גדולים או לחברות בע"מ.  
+      יועץ מס מתאים לעוסקים קטנים ובינוניים.<br><br>
+      חשוב לבחור איש מקצוע ש:
+      <ul>
+        <li>מבין את תחום הפעילות שלך</li>
+        <li>נותן מענה מהיר</li>
+        <li>ברור לגבי עלויות</li>
+        <li>מלווה אותך באופן אישי</li>
+      </ul>
+      פגישה ראשונית ללא עלות – חובה.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: ניהול ספרים -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>📘 ניהול ספרים</h2>
+    <p>
+      ניהול ספרים הוא חובה על פי חוק – גם לעוסק פטור.  
+      אתה נדרש לתעד כל הכנסה והוצאה באופן מסודר:
+      <ul>
+        <li>הנפקת קבלות או חשבוניות לפי סוג העוסק</li>
+        <li>שמירת הוצאות עם מסמכים תומכים</li>
+        <li>סיכום חודשי של תזרים</li>
+      </ul>
+      רשות המסים מפרסמת "הוראות ניהול ספרים" – כדאי לבדוק מה חלים עליך.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: חשבוניות והוצאות -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>🧾 חשבוניות והוצאות</h2>
+    <p>
+      תיעוד הכנסות והוצאות חשוב להקטנת חבות המס.  
+      <strong>חשבונית מס</strong> – לעוסק מורשה בלבד.  
+      <strong>קבלה</strong> – ניתנת בעת קבלת תשלום.  
+      <br><br>
+      <strong>הוצאות מוכרות</strong> – כל הוצאה לצורך העסק, כולל:
+      <ul>
+        <li>ציוד משרדי, פרסום, דלק (חלקית)</li>
+        <li>שירותים מקצועיים (משפטי, הנה"ח)</li>
+        <li>שכירות משרד / עבודה מהבית</li>
+      </ul>
+      שמור הכל – פיזית או דיגיטלית.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: דוחות שנתיים -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>📆 דוחות שנתיים</h2>
+    <p>
+      כל עצמאי חייב להגיש דוח שנתי למס הכנסה (טופס 1301) – כולל גם את העוסקים הפטורים.  
+      הדוח כולל פירוט הכנסות, הוצאות, הפרשות פנסיה וזיכויים.  
+      הוא משמש לחישוב סופי של המס ולבדיקת זכאות להחזר.<br><br>
+      יש להגיש אותו עד 31 במאי בכל שנה – ורצוי בעזרת איש מקצוע.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: מקדמות מס -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>💸 מקדמות מס</h2>
+    <p>
+      מס הכנסה ומע"מ דורשים תשלומים תקופתיים (חודשיים או דו-חודשיים) לפי הערכת הכנסה.<br><br>
+      תשלום לא בזמן גורר קנסות וריביות.  
+      ניתן לעדכן את גובה המקדמות באתר רשות המיסים לפי שינוי בהכנסה.<br><br>
+      עקוב אחרי מועדי הדיווח והקפד על תיעוד – אחרת תשלם ביוקר.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: העסקת עובדים -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>👷 העסקת עובדים</h2>
+    <p>
+      מעסיק מחויב לפי חוק:
+      <ul>
+        <li>שכר מינימום</li>
+        <li>תשלום לביטוח לאומי</li>
+        <li>הפרשות לפנסיה החל מהיום הראשון</li>
+        <li>ימי חופשה, מחלה, הבראה</li>
+      </ul>
+      יש לדווח על כל עובד, ולשמור תלושי שכר ודו"חות תקופתיים.  
+      מומלץ להשתמש בשירות חשבות שכר או רו"ח.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: הנה"ח דיגיטלית -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>💻 הנה"ח דיגיטלית</h2>
+    <p>
+      ניהול עסק בעידן הדיגיטלי לא מחייב קלסרים.  
+      ניתן להשתמש בתוכנות כמו:
+      <ul>
+        <li>חשבונית ירוקה</li>
+        <li>easycount</li>
+        <li>iCount</li>
+        <li>MyOffice</li>
+      </ul>
+      כל עוד ההנפקה עומדת בדרישות מס הכנסה – מותר.  
+      חלק מהמערכות גם מחוברות אוטומטית לרואה החשבון.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: אשראי לעסק קטן -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>🏦 אשראי לעסק קטן</h2>
+    <p>
+      עסקים יכולים לבקש אשראי מהבנק, קרנות מדינה, או גופים פרטיים.  
+      חשוב להכין:
+      <ul>
+        <li>תוכנית עסקית בסיסית</li>
+        <li>הצהרת הכנסות</li>
+        <li>דו"ח תזרים מזומנים</li>
+      </ul>
+      ניהול אשראי נכון מונע תזרים שלילי – ולא נועד למימון הפסדים.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: מענקים לעסקים -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>🎁 מענקים לעסקים</h2>
+    <p>
+      ישנם מענקים שונים:
+      <ul>
+        <li>מענקים ממשלתיים (כמו בתקופת הקורונה)</li>
+        <li>סיוע לעסקים בפריפריה</li>
+        <li>תמריצים לעידוד תעסוקה</li>
+      </ul>
+      בדוק זכאות דרך אתר משרד הכלכלה, רשות המיסים או בליווי יועץ מס.  
+      מענק לא מדווח = קנס עתידי.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: בדיקת רווחיות -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>📊 בדיקת רווחיות</h2>
+    <p>
+      הכנסות גבוהות לא אומרות שהעסק רווחי.  
+      רווח אמיתי = הכנסות – הוצאות.  
+      <br><br>
+      ניתוח רווחיות צריך לכלול:
+      <ul>
+        <li>עלות שירות/מוצר בפועל</li>
+        <li>הוצאות שיווק, תפעול, שכירות</li>
+        <li>מעקב חודשי אחרי מגמות</li>
+      </ul>
+      רואה חשבון טוב יכול לעזור לך לבנות גרף רווחיות ברור.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: שיווק דיגיטלי -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>📣 שיווק דיגיטלי</h2>
+    <p>
+      נוכחות דיגיטלית = חשיפה = לקוחות.  
+      ערוצים עיקריים:
+      <ul>
+        <li>פייסבוק ואינסטגרם – אורגני וממומן</li>
+        <li>גוגל – קמפיינים ממומנים ומפות</li>
+        <li>טיקטוק – לעסקים שפונים לקהל צעיר</li>
+        <li>אתר או דף נחיתה – בסיס מקצועי</li>
+      </ul>
+      שיווק לא חייב לעלות הרבה – אבל כן חייב להיות קבוע ואיכותי.
+    </p>
+  </div>
+</div>
+
+<!-- popup14: סגירת עסק -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>🔚 סגירת עסק</h2>
+    <p>
+      סגירת תיק מסודרת כוללת:
+      <ul>
+        <li>דיווח למע"מ (טופס 18)</li>
+        <li>סגירת תיק במס הכנסה ובביטוח לאומי</li>
+        <li>דוח שנתי אחרון</li>
+      </ul>
+      חשוב לא להשאיר תיקים פתוחים – אחרת תמשיכו לקבל דרישות תשלום גם אחרי סגירת העסק בפועל.
+    </p>
+  </div>
+</div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

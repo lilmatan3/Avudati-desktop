@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>השקעות וחסכונות</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">השקעות וחסכונות</h1>
+
+  <div class="card-grid">
+
+<div class="tip-card">
+  <h3>קופת גמל להשקעה</h3>
+  <p>חיסכון לטווח בינוני-ארוך עם גמישות משיכה – כולל פטור ממס בפנסיה</p>
+  <button onclick="openPopup('popup1')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>קרן השתלמות</h3>
+  <p>החיסכון הכי משתלם לעצמאים ולשכירים – פטור ממס אחרי 6 שנים</p>
+  <button onclick="openPopup('popup2')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>פוליסת חיסכון</h3>
+  <p>השקעה גמישה ללא התחייבות – עם אפשרות שינוי מסלול בכל רגע</p>
+  <button onclick="openPopup('popup3')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>חיסכון פנסיוני</h3>
+  <p>איך מתחילים לחסוך לפנסיה? מה ההבדל בין ביטוח מנהלים, קרן פנסיה וקופת גמל?</p>
+  <button onclick="openPopup('popup4')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>בחירת קרן פנסיה</h3>
+  <p>דמי ניהול, תשואות ושירות – מה הכי חשוב לדעת כשבוחרים קרן פנסיה?</p>
+  <button onclick="openPopup('popup5')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>תיק השקעות</h3>
+  <p>בנק או בית השקעות? מסחר עצמאי או מנוהל? כל האפשרויות להשקיע בעצמך</p>
+  <button onclick="openPopup('popup6')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>מניות מול אגרות חוב</h3>
+  <p>איפה יש סיכון גבוה אבל תשואה אפשרית גבוהה יותר – ואיפה הסולידיות שולטת?</p>
+  <button onclick="openPopup('popup7')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>השקעות סולידיות</h3>
+  <p>למי זה מתאים, באילו מוצרים מדובר, ומה היתרונות של שמרנות פיננסית</p>
+  <button onclick="openPopup('popup8')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>ניהול סיכון</h3>
+  <p>התאמת ההשקעה לאופי שלך: כמה סיכון אתה מוכן לקחת – ואיך מאזנים נכון</p>
+  <button onclick="openPopup('popup9')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>ריבית דריבית</h3>
+  <p>איך זמן יכול להפוך 100 ש"ח ל-100,000 ש"ח – עיקרון הקסם של ההשקעות</p>
+  <button onclick="openPopup('popup10')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>מיסוי רווחי הון</h3>
+  <p>כמה מס משלמים על רווחים? מתי יש פטור? ואיך מדווחים נכון למס הכנסה?</p>
+  <button onclick="openPopup('popup11')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>השוואת מוצרי חיסכון</h3>
+  <p>קופת גמל? קרן השתלמות? פיקדון? כך תבחר את המוצר שמתאים לך</p>
+  <button onclick="openPopup('popup12')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>השקעות לילדים</h3>
+  <p>איך לחסוך לילד מגיל אפס – כדי להעניק לו ביטחון כלכלי בעתיד</p>
+  <button onclick="openPopup('popup13')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>טעויות נפוצות</h3>
+  <p>מה לא לעשות בהשקעות? מתי עדיף לחכות? וממה כדאי להיזהר מראש</p>
+  <button onclick="openPopup('popup14')">לפרטים</button>
+</div>
+
+  <!-- פופאפים ריקים -->
+<!-- popup1: קופת גמל להשקעה -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>📦 קופת גמל להשקעה</h2>
+    <p>
+      קופת גמל להשקעה היא מכשיר חיסכון עם יתרונות מס רבים: ניתן להפקיד עד כ־76,000 ש"ח בשנה (נכון ל-2024), לבחור מסלולי השקעה מגוונים, ולמשוך את הכסף מתי שתרצה – ללא קנס.<br><br>
+      אם תחכה עם המשיכה עד גיל פרישה ותמשוך כקצבה חודשית – תיהנה מפטור מלא ממס על הרווחים!  
+      זהו מוצר חיסכון גמיש, נזיל, ונוח – שמתאים גם לחיסכון לילדים וגם לתוספת לפנסיה.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: קרן השתלמות -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>🎓 קרן השתלמות</h2>
+    <p>
+      החיסכון היחיד בישראל שפטור לחלוטין ממס אחרי 6 שנים!  
+      מתאים לעצמאים וגם כשכירים (אם המעסיק מפריש).  
+      עצמאים יכולים להפקיד עד 7% מההכנסה ולקבל על כך הטבת מס.<br><br>
+      את הכסף אפשר למשוך לכל מטרה – אפילו בלי קשר להשתלמות.  
+      החיסכון נזיל, פטור ממס, ויכול לשמש גם כהשקעה ארוכת טווח חכמה.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: פוליסת חיסכון -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>📑 פוליסת חיסכון</h2>
+    <p>
+      מוצר השקעה דרך חברות הביטוח – ללא תקופת התחייבות, וללא קנסות יציאה.  
+      ניתן להפקיד סכום חד פעמי או בהוראת קבע חודשית, לבחור מסלול סולידי או מנייתי, ולעבור בין מסלולים בלחיצת כפתור – בלי אירוע מס!<br><br>
+      מתאים למי שרוצה שילוב של גמישות, השקעה וחיסכון, עם אפשרות לממש בכל עת.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: חיסכון פנסיוני -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>🏦 חיסכון פנסיוני</h2>
+    <p>
+      הפנסיה שלך היא העתיד הכלכלי שלך.  
+      כל שכיר מחויב להפקדה לפנסיה – וגם עצמאים (החל מ-2017).<br><br>
+      קיימים 3 מוצרים עיקריים:
+      <ul>
+        <li>קרן פנסיה – מוצר נפוץ עם דמי ניהול נמוכים וכיסוי ביטוחי</li>
+        <li>ביטוח מנהלים – חוזה אישי עם תשואה מובטחת או משתנה</li>
+        <li>קופת גמל – מיועד בעיקר לחיסכון פנסיוני נטו, ללא כיסוי ביטוחי</li>
+      </ul>
+      השוואה בין המסלולים מתבצעת לפי דמי ניהול, תשואות, ויכולת ניוד.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: בחירת קרן פנסיה -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>🔍 בחירת קרן פנסיה</h2>
+    <p>
+      כשבוחרים קרן פנסיה חשוב לבדוק:
+      <ul>
+        <li>דמי ניהול – ככל שיותר נמוכים, יותר כסף נשאר אצלך</li>
+        <li>תשואות עבר – איך הקרן ניהלה השקעות בשנים קודמות</li>
+        <li>כיסויים ביטוחיים – שארים, נכות, אובדן כושר</li>
+        <li>שירות לקוחות ונגישות דיגיטלית</li>
+      </ul>
+      אפשר לעבור קרן בכל זמן. כדאי לבדוק גם את הקרנות הנבחרות של משרד האוצר – שמציעות תנאים מועדפים.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: תיק השקעות -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>📈 תיק השקעות</h2>
+    <p>
+      תיק השקעות מאפשר לך להשקיע בשוק ההון – מניות, אג"ח, קרנות, מדדים – לפי העדפה אישית.<br><br>
+      אפשר לפתוח תיק בבנק (עם עמלות גבוהות יותר לרוב), או בבית השקעות (עם ליווי צמוד יותר ודמי ניהול נמוכים יותר).  
+      ניתן לבחור בין ניהול עצמאי לבין תיק מנוהל ע"י אנשי מקצוע.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: מניות מול אגרות חוב -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>⚖️ מניות מול אגרות חוב</h2>
+    <p>
+      <strong>מניות:</strong> השקעה בחברות – סיכון גבוה יותר, אך פוטנציאל לתשואה גבוהה.<br>
+      <strong>אג"ח:</strong> הלוואות לגופים ממשלתיים או פרטיים – סיכון נמוך יותר, אך תשואה צנועה.<br><br>
+      בתיק השקעות מאוזן משלבים בין השניים, לפי טווח ההשקעה ורמת הסיכון שאתה מוכן לקחת.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: השקעות סולידיות -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>🧱 השקעות סולידיות</h2>
+    <p>
+      השקעות סולידיות מתאימות למי שמעדיף ביטחון על פני סיכון.  
+      לרוב כוללות:
+      <ul>
+        <li>אג"ח מדינה או קונצרני בדירוג גבוה</li>
+        <li>פיקדונות בנקאיים</li>
+        <li>קרנות כספיות</li>
+      </ul>
+      הן לא תנודתיות, ומציעות תשואה נמוכה אך יציבה.  
+      אידאליות לשמירה על ערך הכסף, במיוחד לגיל פרישה או לשנתיים-שלוש הקרובות.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: ניהול סיכון -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>🎯 ניהול סיכון</h2>
+    <p>
+      השקעה בלי הבנת סיכון – מסוכנת.  
+      לפני כל החלטה, שאל את עצמך:
+      <ul>
+        <li>כמה זמן אני יכול להשאיר את הכסף?</li>
+        <li>מה יקרה אם ההשקעה תרד ב-10%?</li>
+        <li>האם אני מעדיף יציבות או צמיחה?</li>
+      </ul>
+      ניהול סיכונים נכון משלב בין אפיקים שונים, התאמת טווחים והבנה עצמית – ולא רק רדיפה אחרי תשואות.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: ריבית דריבית -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>📊 ריבית דריבית</h2>
+    <p>
+      זהו אחד הכוחות הכי חזקים בעולם ההשקעות.  
+      כל רווח שנשאר מושקע – מייצר רווח נוסף.<br><br>
+      לדוגמה: השקעה של 1,000 ש"ח עם תשואה של 8% לשנה, תהפוך לכ־2,158 ש"ח תוך 10 שנים – מבלי להוסיף שקל נוסף.  
+      השקעות מוקדמות וצמיחה לאורך זמן הם המפתח לעתיד כלכלי טוב.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: מיסוי רווחי הון -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>💰 מיסוי רווחי הון</h2>
+    <p>
+      רווחים מהשקעות חייבים במס – לרוב בשיעור של 25%.  
+      אם רכשת מניה ב־1,000 ש"ח ומכרת אותה ב־1,500 – תשלם מס על 500 ש"ח בלבד.<br><br>
+      ישנם פטורים והקלות מס, למשל:
+      <ul>
+        <li>השקעה דרך קרנות השתלמות</li>
+        <li>קיזוז הפסדים משנים קודמות</li>
+        <li>פטור על רווחים בקופות פנסיה</li>
+      </ul>
+      חשוב לדווח למס הכנסה בסוף שנה, במיוחד אם ההשקעות בוצעו מחוץ למסלול פנסיוני.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: השוואת מוצרי חיסכון -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>🔍 השוואת מוצרי חיסכון</h2>
+    <p>
+      לא כל חיסכון מתאים לכולם.  
+      בחר מוצר לפי המטרה שלך:
+      <ul>
+        <li>לטווח קצר – פיקדון בנקאי, קרן כספית</li>
+        <li>לטווח בינוני – קופת גמל להשקעה, פוליסת חיסכון</li>
+        <li>לטווח ארוך – קרן פנסיה, קרן השתלמות</li>
+      </ul>
+      השוואה לפי דמי ניהול, נזילות, תשואות והטבות מס תעזור לך לבחור חכם.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: השקעות לילדים -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>🧒 השקעות לילדים</h2>
+    <p>
+      ככל שמתחילים מוקדם יותר – הרווח גדול יותר.  
+      הורים יכולים להשקיע לילדים דרך:
+      <ul>
+        <li>קופת גמל להשקעה</li>
+        <li>פוליסת חיסכון</li>
+        <li>חיסכון בנקאי</li>
+      </ul>
+      הרעיון הוא פשוט – הפקדה חודשית קבועה, צבירה לאורך שנים, וריבית דריבית עושים את העבודה.  
+      זה מעניק לילד התחלה כלכלית טובה לחיים.
+    </p>
+  </div>
+</div>
+
+<!-- popup14: טעויות נפוצות -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>⚠️ טעויות נפוצות</h2>
+    <p>
+      משקיעים מתחילים (וגם מתקדמים!) עושים לעיתים טעויות שחוזרות על עצמן:
+      <ul>
+        <li>כניסה להשקעה בלי להבין את המוצר</li>
+        <li>פיזור יתר – או חוסר פיזור</li>
+        <li>בהלה בזמני ירידות – ומכירה מהירה</li>
+        <li>התעלמות ממיסוי</li>
+      </ul>
+      קבל החלטות מבוססות, בחר השקעות שמתאימות לאופי שלך – ואל תמהר.
+    </p>
+  </div>
+</div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

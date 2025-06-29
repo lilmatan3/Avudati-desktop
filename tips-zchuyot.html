@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>זכויות מיוחדות</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">זכויות מיוחדות</h1>
+
+<div class="card-grid">
+
+  <div class="tip-card">
+    <h3>זכויות נכים בביטוח לאומי</h3>
+    <p>קצבאות חודשיות, תמיכה סוציאלית, הטבות ונקודות זיכוי במס</p>
+    <button onclick="openPopup('popup1')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>פטור ממס לנכה</h3>
+    <p>נכות רפואית מעל אחוז מסוים מזכה בפטור ממס הכנסה – איך בודקים?</p>
+    <button onclick="openPopup('popup2')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>הורים לילדים עם צרכים מיוחדים</h3>
+    <p>סיוע מהמדינה: קצבת ילד נכה, שירותים מיוחדים, זכויות במערכת החינוך</p>
+    <button onclick="openPopup('popup3')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>קצבת ילד נכה</h3>
+    <p>מענק חודשי להורים לילדים עם מוגבלות – תנאים, סכומים ואופן הגשה</p>
+    <button onclick="openPopup('popup4')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>סיוע בדיור לנכים</h3>
+    <p>שכ"ד מסובסד, סיוע ברכישת דירה או התאמות – לפי מבחני זכאות</p>
+    <button onclick="openPopup('popup5')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>זכויות חיילים משוחררים</h3>
+    <p>מענק שחרור, פיקדון אישי, קורסים מסובסדים, תמריצים לעבודה</p>
+    <button onclick="openPopup('popup6')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מענק שחרור</h3>
+    <p>האם קיבלת את המענק שלך? כמה כסף צפוי להיכנס – ואיך משתמשים?</p>
+    <button onclick="openPopup('popup7')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מענק עבודה מועדפת</h3>
+    <p>עבודה בתחומים מסוימים אחרי שירות צבאי מזכה במענק גבוה – בדקת?</p>
+    <button onclick="openPopup('popup8')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>זכויות חד-הוריים</h3>
+    <p>סיוע כלכלי, הנחות, תמיכה בדיור ובחינוך לילדים – בהתאם לקריטריונים</p>
+    <button onclick="openPopup('popup9')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>זכויות עולים חדשים</h3>
+    <p>קליטה כלכלית, הנחות במסים, דיור ציבורי, קורסים בשפה וסיוע בתעסוקה</p>
+    <button onclick="openPopup('popup10')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>הנחות בארנונה</h3>
+    <p>נכים, חד־הוריים, קשישים ואחרים – ייתכן ומגיע לך עד 80% הנחה</p>
+    <button onclick="openPopup('popup11')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>סיוע משפטי חינם</h3>
+    <p>האם אתה זכאי לשירותי עו"ד ללא תשלום מטעם משרד המשפטים?</p>
+    <button onclick="openPopup('popup12')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>סיוע לעובדים זרים</h3>
+    <p>מה הזכויות הסוציאליות של עובדים זרים, פליטים ומבקשי מקלט?</p>
+    <button onclick="openPopup('popup13')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>קצבאות לנפגעי פעולות איבה</h3>
+    <p>נפגעי טרור ופגיעות ביטחוניות זכאים לפיצוי, טיפול רפואי וקצבאות קיום</p>
+    <button onclick="openPopup('popup14')">לפרטים</button>
+  </div>
+
+</div>
+
+<!-- popup1: זכויות נכים בביטוח לאומי -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>🧑‍🦽 זכויות נכים בביטוח לאומי</h2>
+    <p>
+      אדם עם נכות רפואית או תפקודית עשוי להיות זכאי ל:
+      <ul>
+        <li>קצבת נכות כללית חודשית</li>
+        <li>שירותים מיוחדים (ש.מ.)</li>
+        <li>סיוע בשיקום תעסוקתי</li>
+        <li>הטבות בארנונה, תחבורה, הנחות ממשלתיות</li>
+      </ul>
+      יש להגיש תביעה ולעבור ועדה רפואית לקביעת אחוזי נכות ותפקוד.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: פטור ממס לנכה -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>💸 פטור ממס לנכה</h2>
+    <p>
+      נכה עם נכות רפואית של 90% ומעלה (או משוקללת לפי קריטריונים) עשוי להיות זכאי לפטור ממס הכנסה עד תקרה של כ־615,000 ₪ בשנה (נכון ל-2024).  
+      <br><br>
+      כדי לקבל את הפטור יש להגיש טופס 1516+טופס 116, בצירוף מסמכים רפואיים, ולעבור ועדת מס הכנסה.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: הורים לילדים עם צרכים מיוחדים -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>👶 הורים לילדים עם צרכים מיוחדים</h2>
+    <p>
+      הורים לילדים עם מוגבלות זכאים למגוון הטבות:
+      <ul>
+        <li>קצבת ילד נכה</li>
+        <li>הנחות בארנונה, חשמל, גנים</li>
+        <li>פטור ממס על חלק מההכנסה</li>
+        <li>זכות לחופשה מיוחדת מהעבודה</li>
+      </ul>
+      הזכאות תלויה בקביעת נכות רפואית דרך הביטוח הלאומי.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: קצבת ילד נכה -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>🧒 קצבת ילד נכה</h2>
+    <p>
+      קצבה חודשית שמוענקת להורים לילדים עם נכות רפואית, עיכוב התפתחותי או צורך מיוחד בטיפול והשגחה.  
+      <br><br>
+      הסכום משתנה לפי חומרת המצב ונע בין כ-1,600 ₪ ועד 4,000 ₪.  
+      יש להגיש בקשה לביטוח הלאומי ולעבור ועדת תביעות.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: סיוע בדיור לנכים -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>🏠 סיוע בדיור לנכים</h2>
+    <p>
+      נכים עם נכות רפואית משמעותית עשויים להיות זכאים ל:
+      <ul>
+        <li>הנחה בשכר דירה</li>
+        <li>סיוע בשכ"ד ממשרד השיכון</li>
+        <li>מענק לרכישת דירה או התאמות לנגישות</li>
+      </ul>
+      הבקשה מתבצעת דרך משרד הבינוי והשיכון וביטוח לאומי בהתאם לקריטריונים.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: זכויות חיילים משוחררים -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>🎖️ זכויות חיילים משוחררים</h2>
+    <p>
+      חיילים משוחררים זכאים ל:
+      <ul>
+        <li>מענק שחרור</li>
+        <li>פיקדון אישי</li>
+        <li>מימון לימודים / קורסים</li>
+        <li>עדיפות בדיור ציבורי ותעסוקה</li>
+      </ul>
+      כל הזכויות ניתנות דרך הקרן והיחידה להכוונת חיילים משוחררים.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: מענק שחרור -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>💵 מענק שחרור</h2>
+    <p>
+      מענק שניתן אוטומטית לכל חייל משוחרר בהתאם לאורך השירות וסוג השירות.  
+      <br><br>
+      מועבר לחשבון תוך מספר חודשים מהשחרור – אין צורך להגיש בקשה.
+      ניתן לבדוק את הסכום באתר הקרן לחיילים משוחררים.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: מענק עבודה מועדפת -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>🧑‍🔧 מענק עבודה מועדפת</h2>
+    <p>
+      עבודה באחד מהתחומים המאושרים (כמו בתי חולים, תחנות דלק, חקלאות) מזכה במענק של מעל 10,000 ₪.  
+      <br><br>
+      נדרש לעבוד לפחות 150 ימי עבודה במהלך שנתיים מהשחרור.  
+      ההגשה נעשית דרך ביטוח לאומי לאחר סיום התקופה.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: זכויות חד-הוריים -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>👩‍👧 זכויות חד-הוריים</h2>
+    <p>
+      הורים יחידניים עשויים להיות זכאים ל:
+      <ul>
+        <li>קצבאות מוגדלות</li>
+        <li>הנחות בארנונה ותחבורה</li>
+        <li>סיוע בשכ"ד או דיור ציבורי</li>
+        <li>מענקי לימודים</li>
+      </ul>
+      הזכאות ניתנת לפי מבחני הכנסה ומצב משפחתי.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: זכויות עולים חדשים -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>🛬 זכויות עולים חדשים</h2>
+    <p>
+      כל עולה חדש זכאי ל:
+      <ul>
+        <li>סל קליטה</li>
+        <li>פטור ממסים והקלות ביבוא</li>
+        <li>קורסי עברית (אולפן)</li>
+        <li>הכוונה תעסוקתית ומלגות לימוד</li>
+      </ul>
+      ניתן לבדוק זכאות דרך משרד העלייה והקליטה.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: הנחות בארנונה -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>🏘️ הנחות בארנונה</h2>
+    <p>
+      אוכלוסיות רבות זכאיות להנחה בארנונה:
+      <ul>
+        <li>נכים ובעלי תעודת עיוור</li>
+        <li>חד-הוריים</li>
+        <li>עולים חדשים (5 שנים ראשונות)</li>
+        <li>מקבלי קצבאות מביטוח לאומי</li>
+      </ul>
+      את הבקשה יש להגיש לעירייה בצירוף המסמכים המתאימים.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: סיוע משפטי חינם -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>⚖️ סיוע משפטי חינם</h2>
+    <p>
+      משרד המשפטים מעניק שירות משפטי ללא תשלום לאזרחים מעוטי יכולת.  
+      <br><br>
+      הזכאות נבחנת לפי מבחן הכנסה וסוג התביעה (משפחה, נדל"ן, קצבאות וכו').  
+      ניתן להגיש בקשה באתר הסיוע המשפטי הממשלתי.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: סיוע לעובדים זרים -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>🌍 סיוע לעובדים זרים</h2>
+    <p>
+      עובדים זרים זכאים ל:
+      <ul>
+        <li>שכר מינימום</li>
+        <li>ביטוח בריאות בסיסי</li>
+        <li>תנאי מגורים נאותים</li>
+        <li>זכויות לפי דיני עבודה (פיצויים, ימי חופשה)</li>
+      </ul>
+      קיימים ארגונים ממשלתיים וחוץ-ממשלתיים שנותנים ייעוץ וליווי.
+    </p>
+  </div>
+</div>
+
+<!-- popup14: קצבאות לנפגעי פעולות איבה -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>🕊️ קצבאות לנפגעי פעולות איבה</h2>
+    <p>
+      מי שנפגע בגופו או בנפשו כתוצאה מפעולת איבה (ירי, פיגוע, רקטות) זכאי ל:
+      <ul>
+        <li>קצבת נכות ממשרד הביטחון</li>
+        <li>החזרים רפואיים ושירותים רפואיים</li>
+        <li>שיקום תעסוקתי ונפשי</li>
+      </ul>
+      את התביעה מגישים למוסד לביטוח לאומי – אגף נפגעי איבה.
+    </p>
+  </div>
+</div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

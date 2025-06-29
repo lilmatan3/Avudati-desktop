@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ביטוח לאומי</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <!-- כותרת -->
+  <h1 class="subheader">ביטוח לאומי</h1>
+
+  <!-- תוכן -->
+  <div class="card-grid">
+
+    <!-- כל הכרטיסים -->
+    <!-- נעבור לפי הסדר מ-1 עד 14 -->
+    <div class="tip-card"><h3>קצבת ילדים</h3><p>קצבה חודשית שמועברת להורים עבור כל ילד</p><button onclick="openPopup('popup1')">לפרטים</button></div>
+    <div class="tip-card"><h3>דמי לידה</h3><p>תשלום חד פעמי ליולדת במקום שכר</p><button onclick="openPopup('popup2')">לפרטים</button></div>
+    <div class="tip-card"><h3>עקרת בית</h3><p>מתי צריך לשלם לביטוח לאומי ואיך מבקשים פטור</p><button onclick="openPopup('popup3')">לפרטים</button></div>
+    <div class="tip-card"><h3>דמי אבטלה</h3><p>למי מגיע, כמה זמן, ואיך מגישים בקשה</p><button onclick="openPopup('popup4')">לפרטים</button></div>
+    <div class="tip-card"><h3>דמי פגיעה בעבודה</h3><p>נפצעת בעבודה? כך תגיש בקשה לפיצוי</p><button onclick="openPopup('popup5')">לפרטים</button></div>
+    <div class="tip-card"><h3>תשלום עצמאי</h3><p>איך לדווח ולשלם לביטוח לאומי כעצמאי</p><button onclick="openPopup('popup6')">לפרטים</button></div>
+    <div class="tip-card"><h3>מילואים ושירות אזרחי</h3><p>כיצד ביטוח לאומי משלים שכר למשרתים</p><button onclick="openPopup('popup7')">לפרטים</button></div>
+    <div class="tip-card"><h3>קצבת נכות כללית</h3><p>למי מגיע? איך מגישים תביעה?</p><button onclick="openPopup('popup8')">לפרטים</button></div>
+    <div class="tip-card"><h3>קצבת ילד נכה</h3><p>מה מגיע להורים לילדים עם צרכים מיוחדים</p><button onclick="openPopup('popup9')">לפרטים</button></div>
+    <div class="tip-card"><h3>פטור מתשלום</h3><p>מי זכאי לפטור מלא או חלקי מדמי ביטוח?</p><button onclick="openPopup('popup10')">לפרטים</button></div>
+    <div class="tip-card"><h3>פתיחת תיק עצמאי</h3><p>כיצד פותחים תיק עצמאי בביטוח לאומי?</p><button onclick="openPopup('popup11')">לפרטים</button></div>
+    <div class="tip-card"><h3>הגשת תביעה</h3><p>איך מגישים תביעה און־ליין ומבצעים מעקב</p><button onclick="openPopup('popup12')">לפרטים</button></div>
+    <div class="tip-card"><h3>אישורי זכאות</h3><p>איך מוציאים אישור תושב / אישור מעסיק</p><button onclick="openPopup('popup13')">לפרטים</button></div>
+    <div class="tip-card"><h3>השירות האישי</h3><p>כניסה לחשבון באתר הביטוח הלאומי</p><button onclick="openPopup('popup14')">לפרטים</button></div>
+  </div>
+
+  <!-- פופאפים -->
+  <!-- כל אחד מ-1 עד 14 -->
+ <!-- popup1: קצבת ילדים -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>קצבת ילדים</h2>
+    <p>
+      קצבת ילדים היא קצבה חודשית שמשולמת על ידי המוסד לביטוח לאומי עבור כל ילד במשפחה עד גיל 18.<br><br>
+      מטרת הקצבה היא לסייע למשפחות בכיסוי ההוצאות הכרוכות בגידול ילדים.  
+      הסכום משתנה לפי מועד הלידה של הילד, סדר הלידה, וכמות הילדים במשפחה.<br><br>
+      הקצבה מועברת ישירות לחשבון הבנק של ההורה הרשום, ובחלק מהמקרים ניתן להגיש בקשה להגדלת סכום הקצבה (למשל במקרה של משפחות חד הוריות).
+    </p>
+  </div>
+</div>
+
+<!-- popup2: דמי לידה -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>דמי לידה</h2>
+    <p>
+      דמי לידה הם תשלום חד פעמי שמועבר ליולדת במקום שכר בתקופת חופשת הלידה.  
+      הזכאות ניתנת לעובדות שהיו מועסקות במשך 10 מתוך 14 החודשים שקדמו ללידה (או 15 מתוך 22 חודשים).<br><br>
+      גובה התשלום מבוסס על השכר הממוצע של היולדת, והוא ניתן לתקופה של 15 שבועות.  
+      ניתן להאריך את התקופה במקרים מסוימים כמו לידת תאומים או אשפוז ממושך של הילוד.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: עקרת בית -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>עקרת בית</h2>
+    <p>
+      עקרת בית היא אישה נשואה שאינה עובדת מחוץ לבית, אינה רשומה כעצמאית, ואינה זכאית לגמלת הבטחת הכנסה.<br><br>
+      נשים אלו נדרשות לשלם דמי ביטוח לאומי בסיסיים, אלא אם קיבלו פטור.  
+      ניתן להגיש בקשה לפטור דרך טופס ייעודי באתר הביטוח הלאומי או באמצעות פנייה לסניף.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: דמי אבטלה -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>דמי אבטלה</h2>
+    <p>
+      דמי אבטלה ניתנים למובטלים שעבדו בעבר כעובדים שכירים וצברו תקופת אכשרה מספקת.  
+      הבקשה מתחילה בהרשמה בלשכת התעסוקה ולאחר מכן הגשה לביטוח לאומי.<br><br>
+      מספר ימי הזכאות וגובה הקצבה נקבעים לפי גיל, תקופת העבודה וגובה השכר קודם לאבטלה.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: דמי פגיעה בעבודה -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>דמי פגיעה בעבודה</h2>
+    <p>
+      עובד שנפגע בתאונת עבודה או בדרך לעבודה/ממנה, זכאי לדמי פגיעה שמחליפים את שכרו למשך עד 91 ימים.<br><br>
+      יש למלא טופס בל/250 (אם שכיר) או בל/283 (אם עצמאי) ולצרף אישור רפואי מתאים.  
+      ניתן להגיש את הבקשה דרך האתר או ישירות בסניף.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: תשלום עצמאי -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>תשלום עצמאי</h2>
+    <p>
+      כל עצמאי מחויב לשלם דמי ביטוח לאומי על פי רמת הכנסתו.  
+      החישוב מתבצע לפי מקדמות המבוססות על הערכת הכנסה שנתית.<br><br>
+      הדיווח והעדכון מתבצעים דרך אזור אישי באתר הביטוח הלאומי, וניתן לשנות את ההצהרה לאורך השנה.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: מילואים ושירות אזרחי -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>מילואים ושירות אזרחי</h2>
+    <p>
+      ביטוח לאומי משלם תשלום לחיילים במילואים ולעובדי שירות אזרחי בגין אובדן הכנסה בימי השירות.  
+      התשלום ניתן לפי שכר ממוצע קודם וכולל החזר מלא או חלקי בהתאם למעמד העובד (שכיר/עצמאי).<br><br>
+      יש להגיש טופס בל/3010 או טופס מתאים אחר עם אישור על השירות.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: קצבת נכות כללית -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>קצבת נכות כללית</h2>
+    <p>
+      הקצבה מיועדת למבוטחים שיכולת ההשתכרות שלהם נפגעה ב-60% ומעלה עקב מצב רפואי קבוע.  
+      יש לעבור ועדה רפואית ולקבל קביעת דרגת נכות ואי כושר עבודה.<br><br>
+      גובה הקצבה משתנה לפי דרגת הנכות וההכנסה הנוספת, ויכול להגיע לאלפי שקלים בחודש.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: קצבת ילד נכה -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>קצבת ילד נכה</h2>
+    <p>
+      מיועדת להורים לילדים עם מוגבלויות רפואיות, נפשיות או התפתחותיות.  
+      הקצבה ניתנת לפי דרגת התפקוד והצרכים הרפואיים של הילד.<br><br>
+      ההורה מגיש תביעה, והילד עובר בדיקה על ידי ועדה רפואית של הביטוח הלאומי.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: פטור מתשלום -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>פטור מתשלום</h2>
+    <p>
+      קבוצות שונות זכאיות לפטור מדמי ביטוח לאומי – ביניהן: חיילים בשירות סדיר, סטודנטים במוסדות מסוימים,  
+      עקרות בית, אנשים ללא הכנסות ועוד.<br><br>
+      יש להגיש בקשה רשמית לפטור ולצרף את האישורים המתאימים דרך האתר או בסניף.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: פתיחת תיק עצמאי -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>פתיחת תיק עצמאי</h2>
+    <p>
+      כל אדם שמתחיל לעבוד כעצמאי מחויב לדווח לביטוח לאומי בתוך 90 יום.<br><br>
+      התהליך כולל מילוי טופס מקוון, הצהרה על תחילת פעילות, ואישור גובה ההכנסות הצפויות.  
+      אי פתיחת תיק בזמן עלול לגרור חוב וקנסות.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: הגשת תביעה -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>הגשת תביעה</h2>
+    <p>
+      תביעות לקצבאות ולשירותים מביטוח לאומי ניתן להגיש דרך האתר או באמצעות הדואר.<br><br>
+      כל תביעה דורשת מסמכים תומכים, טפסים ממולאים, ולעיתים גם אישורים רפואיים.  
+      לאחר הגשה ניתן לעקוב אחר סטטוס התביעה באזור האישי באתר.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: אישורי זכאות -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>אישורי זכאות</h2>
+    <p>
+      ניתן להפיק אישורים שונים דרך האזור האישי באתר הביטוח הלאומי –  
+      כולל אישור על תשלום דמי ביטוח, אישור תושב, אישור למעסיק ועוד.<br><br>
+      המסמכים זמינים להורדה מיידית ולשימוש בהגשה לרשויות אחרות.
+    </p>
+  </div>
+</div>
+
+<!-- popup14: השירות האישי -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>השירות האישי</h2>
+    <p>
+      השירות האישי של הביטוח הלאומי מאפשר צפייה בפרטי חשבון, הגשת בקשות, עדכון פרטים,  
+      הורדת מסמכים, מעקב אחר תביעות ועוד – הכל באופן מקוון ונוח.<br><br>
+      ההתחברות נעשית באמצעות סיסמה אישית או הזדהות ממשלתית.
+    </p>
+  </div>
+</div>
+
+
+  <!-- סקריפט -->
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

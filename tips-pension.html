@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>פנסיה וגמל</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">פנסיה וגמל</h1>
+
+  <div class="card-grid">
+
+<div class="card-grid">
+
+  <div class="tip-card">
+    <h3>מהי פנסיה?</h3>
+    <p>הסבר פשוט על קרנות פנסיה, ביטוח מנהלים וקופות גמל – ומה ההבדלים ביניהן</p>
+    <button onclick="openPopup('popup1')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>פנסיה לשכירים</h3>
+    <p>מה המעסיק חייב להפריש עבורך? ואילו זכויות יש לך בקרן?</p>
+    <button onclick="openPopup('popup2')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>פנסיה לעצמאים</h3>
+    <p>חובת הפקדה לעצמאים – איך מחשבים, מה ההטבות, ומה הסנקציות</p>
+    <button onclick="openPopup('popup3')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>קרן פנסיה או ביטוח מנהלים?</h3>
+    <p>מה ההבדל בין המוצרים? יתרונות, חסרונות ומה מתאים לך יותר</p>
+    <button onclick="openPopup('popup4')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>איך בוחרים קרן?</h3>
+    <p>מה חשוב לבדוק – תשואות, דמי ניהול, כיסויים ביטוחיים, ושירות</p>
+    <button onclick="openPopup('popup5')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>סוגי קופות גמל</h3>
+    <p>מה ההבדל בין קופת גמל לקצבה, להשקעה או לתגמולים?</p>
+    <button onclick="openPopup('popup6')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>קרן השתלמות</h3>
+    <p>החיסכון הכי משתלם לעצמאים ושכירים – פטור ממס ובלי התחייבות</p>
+    <button onclick="openPopup('popup7')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>כספים אבודים</h3>
+    <p>איך בודקים אם יש לך קופות או קרנות שלא ידעת עליהן?</p>
+    <button onclick="openPopup('popup8')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מעבר בין קרנות</h3>
+    <p>אפשר לעבור קרן פנסיה בלי קנס – מתי משתלם לעשות את זה?</p>
+    <button onclick="openPopup('popup9')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>שינוי מסלול השקעה</h3>
+    <p>כללי, סולידי, מנייתי – איזה מסלול מתאים לגיל שלך ולרמת הסיכון?</p>
+    <button onclick="openPopup('popup10')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>דמי ניהול</h3>
+    <p>כמה נהוג לשלם? ואיך אפשר להוריד את דמי הניהול שלך בפנסיה</p>
+    <button onclick="openPopup('popup11')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>קצבה בפרישה</h3>
+    <p>איך מקבלים את הכסף בגיל פרישה? ואיך יודעים כמה יישאר לך?</p>
+    <button onclick="openPopup('popup12')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מיסוי פנסיוני</h3>
+    <p>הקלות מס ופטורים בפנסיה – איך לא לשלם מס מיותר</p>
+    <button onclick="openPopup('popup13')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מחשבון פנסיה</h3>
+    <p>איך תדע כמה תקבל? כלי חישוב לפי שכר, ותק והפקדות</p>
+    <button onclick="openPopup('popup14')">לפרטים</button>
+  </div>
+
+</div>
+
+  </div>
+
+  <!-- פופאפים ריקים -->
+<!-- popup1: מהי פנסיה -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>🏦 מהי פנסיה?</h2>
+    <p>
+      פנסיה היא קצבה חודשית שמתקבלת לאחר גיל פרישה ומחליפה את המשכורת.  
+      בישראל קיימים כמה סוגים עיקריים:
+      <ul>
+        <li>קרן פנסיה – הנפוצה ביותר</li>
+        <li>ביטוח מנהלים – חוזה אישי עם חברת ביטוח</li>
+        <li>קופת גמל לקצבה – דומה לקרן פנסיה, ללא כיסויים ביטוחיים</li>
+      </ul>
+      ההפקדות לפנסיה נעשות לאורך שנות העבודה – גם על ידי העובד וגם על ידי המעסיק.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: פנסיה לשכירים -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>👔 פנסיה לשכירים</h2>
+    <p>
+      כל עובד שכיר בישראל זכאי להפקדות פנסיה החל מהחודש הראשון לעבודה.  
+      ההפרשה נעשית כך:
+      <ul>
+        <li>המעסיק מפריש 6.5% לפנסיה ו–6% לפיצויים</li>
+        <li>העובד מפריש 6% משכרו</li>
+      </ul>
+      קרן הפנסיה כוללת גם ביטוח שארים ונכות.  
+      העובד רשאי לבחור את הקרן – והמעביד מחויב להעביר את הכספים ישירות.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: פנסיה לעצמאים -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>💼 פנסיה לעצמאים</h2>
+    <p>
+      החל מ־2017, עצמאים בישראל מחויבים להפקיד לפנסיה.  
+      גובה ההפקדה מחושב כאחוז מההכנסה:
+      <ul>
+        <li>עד מחצית מהשכר הממוצע – כ־4.5%</li>
+        <li>מעל מחצית ועד השכר הממוצע – כ־12.5%</li>
+      </ul>
+      אי-הפקדה עלולה לגרור קנס.  
+      ההפקדה מזכה בהטבת מס – ומומלץ לבצע אותה בסוף כל שנה לפי ההכנסה בפועל.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: קרן פנסיה או ביטוח מנהלים -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>🔍 קרן פנסיה או ביטוח מנהלים?</h2>
+    <p>
+      <strong>קרן פנסיה:</strong> מבוססת על מנגנון הדדי, דמי ניהול נמוכים יותר, כוללת כיסוי שארים ונכות.<br>
+      <strong>ביטוח מנהלים:</strong> חוזה אישי עם חברת ביטוח, מאפשר קיבוע תשואה או מקדם, יקר יותר.<br><br>
+      לרוב העובדים תתאים קרן פנסיה, אך יש מקרים שבהם ביטוח מנהלים עדיף (שכר גבוה, גיל מתקדם).
+    </p>
+  </div>
+</div>
+
+<!-- popup5: איך בוחרים קרן -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>📈 איך בוחרים קרן?</h2>
+    <p>
+      קרן פנסיה טובה נמדדת לפי:
+      <ul>
+        <li>דמי ניהול – אפשר וכדאי להתמקח</li>
+        <li>תשואות עבר – צמיחה עקבית לאורך זמן</li>
+        <li>מסלול השקעה – כללי / סולידי / מנייתי</li>
+        <li>שירות ונגישות דיגיטלית</li>
+      </ul>
+      כדאי לבדוק גם את הקרנות הנבחרות של משרד האוצר – עם תנאים מועדפים.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: סוגי קופות גמל -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>💼 סוגי קופות גמל</h2>
+    <p>
+      קופות גמל הן מכשירי חיסכון שמיועדים לפנסיה או להשקעה:
+      <ul>
+        <li>קופת גמל לקצבה – חיסכון לגיל פרישה בלבד</li>
+        <li>קופת גמל להשקעה – גמישה ונזילה, עם פטור ממס בפרישה</li>
+        <li>קופת גמל רגילה (ישנה) – קיימת רק לחוסכים ותיקים</li>
+      </ul>
+      כל אחד יכול להפקיד – עצמאים, שכירים, ואפילו הורים לילדים.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: קרן השתלמות -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>🎓 קרן השתלמות</h2>
+    <p>
+      חיסכון לטווח בינוני (6 שנים) – פטור ממס, גמיש ונזיל.  
+      עצמאים זכאים להטבות מס על הפקדות, ושכירים נהנים מהפרשות המעסיק.<br><br>
+      אפשר להשתמש בכסף לכל מטרה – לא רק להשתלמות.  
+      כדאי לפתוח ולהפקיד באופן קבוע – גם סכומים קטנים מצטברים משמעותית.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: כספים אבודים -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>🕵️‍♂️ כספים אבודים</h2>
+    <p>
+      ייתכן ויש לך כספי פנסיה שלא ידעת עליהם – מקרנות ישנות, עבודות קודמות וכו'.  
+      ניתן לבדוק בקלות באתר "הר הביטוח" ו"מסלקה פנסיונית".<br><br>
+      לאחר איתור – אפשר לאחד קופות כדי לחסוך בדמי ניהול.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: מעבר בין קרנות -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>🔄 מעבר בין קרנות</h2>
+    <p>
+      ניתן לעבור קרן פנסיה בכל שלב – אין קנס ואין אישור מהמעביד.  
+      מעבר לקרן משתלמת יותר יכול לחסוך עשרות אלפי שקלים לאורך השנים.<br><br>
+      חשוב לבדוק האם הכיסוי הביטוחי נשמר, ואם יש תקופת אכשרה.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: שינוי מסלול השקעה -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>📊 שינוי מסלול השקעה</h2>
+    <p>
+      כל קרן פנסיה מציעה מסלולים שונים:
+      <ul>
+        <li>מסלול כללי – ברירת מחדל</li>
+        <li>מסלול מנייתי – לתשואה גבוהה יותר אך עם סיכון</li>
+        <li>מסלול סולידי – לשמר ערך לקראת פרישה</li>
+        <li>מסלול מותאם גיל</li>
+      </ul>
+      ניתן לעבור בין מסלולים ללא עלות.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: דמי ניהול -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>💰 דמי ניהול</h2>
+    <p>
+      דמי ניהול נגבים מההפקדות ומהצבירה.  
+      ניתן להתמקח! ההבדל בין 2% ל–0.5% לאורך 30 שנה = עשרות אלפים ש"ח.<br><br>
+      קרנות נבחרות של האוצר מציעות דמי ניהול מוזלים.  
+      תמיד אפשר לעבור קרן – בלי קנס.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: קצבה בפרישה -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>🧓 קצבה בפרישה</h2>
+    <p>
+      בגיל פרישה – הכספים שצברת ישולמו כקצבה חודשית.  
+      <ul>
+        <li>תלויה בגובה הצבירה, גיל ותק, מקדם</li>
+        <li>כוללת לרוב כיסוי לשארים</li>
+      </ul>
+      אפשר לבקש קיבוע מס או משיכה חד-פעמית (במגבלות).  
+      מומלץ להתייעץ עם מתכנן פרישה.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: מיסוי פנסיוני -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>📜 מיסוי פנסיוני</h2>
+    <p>
+      ישנם פטורים ממס על קצבת הפנסיה, במיוחד אם ביצעת קיבוע זכויות.  
+      <ul>
+        <li>פטור חלקי עד תקרה</li>
+        <li>אפשר לקבל החזר מס רטרואקטיבי</li>
+        <li>קיימות הטבות נוספות לנכים, אלמנים או ניצולי שואה</li>
+      </ul>
+      מיסוי נכון = יותר כסף פנוי בפרישה.
+    </p>
+  </div>
+</div>
+
+<!-- popup14: מחשבון פנסיה -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>🧮 מחשבון פנסיה</h2>
+    <p>
+      רוצים לדעת כמה תקבלו בפנסיה?  
+      היכנסו למחשבון של משרד האוצר או האתר של הקרן שלכם.<br><br>
+      הזינו: גיל, שכר, ותק, גובה הפרשה – ותקבלו הערכה לקצבה החודשית.  
+      תכנון נכון היום = שקט כלכלי מחר.
+    </p>
+  </div>
+</div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

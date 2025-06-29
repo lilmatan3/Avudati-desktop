@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>הפקת תלוש שכר</title>
+  <link rel="stylesheet" href="paystub.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #eef2f9;
+      padding: 20px;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #0b5394;
+    }
+
+    .section {
+      background: #fff;
+      padding: 20px;
+      margin-bottom: 25px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .section h2 {
+      color: #0b5394;
+      margin-bottom: 15px;
+    }
+
+    .section ul {
+      margin: 0 0 10px 0;
+      padding-right: 20px;
+      list-style: disc;
+    }
+
+    .section p {
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .back-btn {
+      display: inline-block;
+      background: #ccc;
+      color: #333;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .download-btn {
+      display: inline-block;
+      background: #2196f3;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-top: 10px;
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 40px;
+    }
+
+    .paystub-btn {
+      background: #2196f3;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95em;
+    }
+
+    select.paystub-btn {
+      background: #fff;
+      color: #333;
+      border: 2px solid #2196f3;
+      padding: 8px 12px;
+      font-size: 0.95em;
+    }
+
+    .tax-note {
+      font-size: 0.9em;
+      opacity: 0.85;
+      margin-top: 50px;
+      border-top: 2px dashed #ccc;
+      padding-top: 20px;
+    }
+
+    .tax-note h2 {
+      font-size: 1.1em;
+      color: #0b5394;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <a href="timesheet.html" class="back-btn">← חזרה לדף השעות</a>
+
+  <h1>הפקת תלוש שכר</h1>
+
+  <div id="taxExplanation"></div>
+
+  <div class="section">
+    <h2>📋 מידע שחשוב למלא לפני הפקת התלוש</h2>
+    <p>כדי שהתלוש יחושב בצורה מדויקת, ודא שהגדרת את כל הפרטים הבאים:</p>
+    <ul>
+      <li>💰 שכר שעתי מדויק בעמוד "מבנה שכר"</li>
+      <li>🏢 מגזר העבודה: ציבורי / פרטי, 5 או 6 ימים בשבוע</li>
+      <li>📅 תאריך תחילת עבודה – חשוב לחישוב הבראה וחופשה</li>
+      <li>💳 נקודות זיכוי ממס הכנסה – בעמוד "מס והטבות"</li>
+      <li>🏦 אחוזי הפרשות לפנסיה, קרן השתלמות ופיצויים</li>
+      <li>🩺 האם יש ביטוח לאומי וביטוח בריאות</li>
+      <li>🎁 תוספות והורדות – כמו בונוסים, רכב, החזרי נסיעות ועוד</li>
+    </ul>
+    <p><strong>הערה:</strong> התוצאה מבוססת על חוקי העבודה בישראל אך אינה מהווה תלוש רשמי מהמעסיק.</p>
+  </div>
+
+  <div class="section">
+    <h2>⬇️ הורדת תלוש שכר</h2>
+    <p>בעתיד תוכל להוריד קובץ תלוש שכר בפורמט PDF או Excel.</p>
+    <a href="#" class="download-btn" title="בקרוב יתווסף ייצוא קובץ">📥 הורדת תלוש (בקרוב)</a>
+  </div>
+
+  <div class="paystub-container"></div>
+
+  <div class="button-row">
+    <a href="timesheet.html" class="paystub-btn">🕒 חזרה לדף השעות</a>
+
+    <select id="monthSelect" class="paystub-btn">
+      <option value="1">ינואר</option>
+      <option value="2">פברואר</option>
+      <option value="3">מרץ</option>
+      <option value="4">אפריל</option>
+      <option value="5">מאי</option>
+      <option value="6">יוני</option>
+      <option value="7">יולי</option>
+      <option value="8">אוגוסט</option>
+      <option value="9">ספטמבר</option>
+      <option value="10">אוקטובר</option>
+      <option value="11">נובמבר</option>
+      <option value="12">דצמבר</option>
+    </select>
+
+    <select id="yearSelect" class="paystub-btn"></select>
+
+    <a href="final.html" id="viewExampleBtn" class="paystub-btn">📄 צפייה בתלוש לדוגמה</a>
+  </div>
+
+  <div class="section tax-note">
+    <h2>* הסבר על חישוב מס הכנסה</h2>
+    <p>חישוב מס הכנסה מבוסס על מדרגות מס חודשיות שמצטברות לאורך החודש. המשמעות היא שבתחילת החודש ייתכן והמס יהיה נמוך מאוד, אך יעלה ככל שיצטבר שכר.</p>
+    <p>למשל, אם מעסיק מפיק תלוש באמצע החודש – המס עשוי להיות נמוך יותר מאשר בסוף החודש, גם אם השכר החודשי בפועל זהה.</p>
+    <p>כמו כן, התחשיב כולל הפחתה לפי מספר נקודות זיכוי שמגיעות לך לפי חוק (למשל, חייל משוחרר, תושב ישראל, הורה לילד קטן וכו').</p>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // מילוי שנים מ-2020 ועד 2033
+      const currentYear = new Date().getFullYear();
+      const yearSelect = document.getElementById("yearSelect");
+      for (let y = 2020; y <= 2033; y++) {
+        const opt = document.createElement("option");
+        opt.value = y;
+        opt.textContent = y;
+        if (y === currentYear) opt.selected = true;
+        yearSelect.appendChild(opt);
+      }
+
+      // קביעת חודש נוכחי כברירת מחדל
+      document.getElementById("monthSelect").value = new Date().getMonth() + 1;
+
+      // בלחיצה על כפתור צפייה – שמירה ללוקל סטורג'
+      document.getElementById("viewExampleBtn").addEventListener("click", () => {
+        const selectedMonth = document.getElementById("monthSelect").value;
+        const selectedYear = document.getElementById("yearSelect").value;
+        localStorage.setItem("detailedMonth", selectedMonth);
+        localStorage.setItem("detailedYear", selectedYear);
+      });
+    });
+  </script>
+</body>
+</html>

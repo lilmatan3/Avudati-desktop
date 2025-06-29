@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>הספרייה שלי</title>
+
+  <!-- עיצוב כללי -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="paycheck-library.css" />
+
+  <!-- ספריות חיצוניות -->
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+  <style>
+    .file-card.disabled {
+      opacity: 0.3;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="paycheck.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <!-- כותרת -->
+  <h1>📁 הספרייה שלי</h1>
+
+  <!-- תצוגת ספרייה -->
+  <div class="content" id="library">
+    <!-- כאן יוצגו הקבצים -->
+  </div>
+
+  <!-- קלט קובץ חבוי -->
+  <input type="file" id="fileInput" accept="image/*" style="display: none;" />
+
+  <!-- כפתור עיגול תחתון -->
+  <button class="add-button" id="addButton">＋</button>
+
+  <!-- תפריט פעולה -->
+  <div class="action-menu" id="menu">
+    <button id="uploadBtn">📤 הוספת תלוש</button>
+    <button id="editBtn">✏️ עריכת תלושים</button>
+    <button id="viewBtn">🔍 פירוט תלוש</button>
+  </div>
+
+  <!-- לוגיקה -->
+  <script type="module" src="paycheck-library.js"></script>
+</body>
+</html>

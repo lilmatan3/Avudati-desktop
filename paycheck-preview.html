@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>תצוגת תלוש</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 10px 0 0;
+      font-size: 24px;
+    }
+
+    #contentViewer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: calc(100vh - 100px);
+      overflow: auto;
+      transform-origin: center;
+    }
+
+    iframe {
+      display: block;
+      width: 100%;
+      height: calc(100vh - 100px);
+      border: none;
+    }
+
+    img {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: calc(100vh - 100px);
+      object-fit: contain;
+    }
+
+    .zoom-buttons {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+      position: fixed;
+      top: 20px;
+      width: 100%;
+      z-index: 2;
+      justify-content: space-evenly;
+    }
+
+    .zoom-buttons button {
+      font-size: 18px;
+      margin: 0 10px;
+      padding: 10px;
+      cursor: pointer;
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📄 תצוגת תלוש</h1>
+
+  <div class="zoom-buttons">
+    <button id="zoomInBtn">הגדל</button>
+    <button id="zoomOutBtn">הקטן</button>
+  </div>
+
+  <div id="contentViewer"></div>
+
+  <script type="module">
+    import { openDB } from 'https://cdn.jsdelivr.net/npm/idb@7/+esm';
+
+    async function loadFile() {
+      const id = localStorage.getItem("selectedPayslipId");
+      if (!id) {
+        alert("לא נבחר תלוש");
+        return;
+      }
+
+      const db = await openDB("PaycheckDB", 1);
+      const tx = db.transaction("payslips", "readonly");
+      const store = tx.objectStore("payslips");
+      const item = await store.get(Number(id));
+
+      if (!item) {
+        alert("התלוש לא נמצא");
+        return;
+      }
+
+      console.log("Loaded file:", item);
+
+      const contentViewer = document.getElementById("contentViewer");
+
+      if (!item.isImage) {
+        const blob = new Blob([item.data], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+        const iframe = document.createElement("iframe");
+        iframe.src = url;
+        contentViewer.innerHTML = "";
+        contentViewer.appendChild(iframe);
+      } else {
+        const img = document.createElement("img");
+        const blob = new Blob([item.data], { type: "image/png" });
+        const imgURL = URL.createObjectURL(blob);
+        img.src = imgURL;
+        img.id = "zoomableImage";
+        contentViewer.innerHTML = "";
+        contentViewer.appendChild(img);
+      }
+    }
+
+    loadFile();
+
+    let zoomLevel = 1;
+
+    document.getElementById("zoomInBtn").addEventListener("click", function () {
+      if (zoomLevel < 1.3) {
+        zoomLevel += 0.1;
+        const img = document.getElementById("zoomableImage");
+        if (img) img.style.transform = `scale(${zoomLevel})`;
+      }
+    });
+
+    document.getElementById("zoomOutBtn").addEventListener("click", function () {
+      zoomLevel -= 0.1;
+      const img = document.getElementById("zoomableImage");
+      if (img) img.style.transform = `scale(${zoomLevel})`;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <title>Timesheet with Consecutive Sick Days</title>
+  <link rel="stylesheet" href="timesheet.css">
+  <style>
+    body {
+      direction: rtl;
+      font-family: Arial, sans-serif;
+      background: #f2f7ff;
+      margin: 20px;
+      color: #333;
+    }
+    .day-form-overlay, .excel-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.5); display: none;
+      align-items:center; justify-content:center;
+      z-index: 1000;
+    }
+    .day-form-overlay.show, .excel-overlay.show {
+      display: flex;
+    }
+    .day-form, .excel-form {
+      background:#fff; padding:20px; border-radius:10px;
+      width:90%; max-width:500px;
+      box-shadow:0 0 20px rgba(0,0,0,0.2);
+      direction: rtl;
+    }
+    .excel-form { max-width:300px; }
+    .day-form h2, .excel-form h2 {
+      margin-top:0;
+    }
+    .row { margin-bottom:10px; display:flex; flex-direction:column; }
+    .row label { font-weight:bold; margin-bottom:4px; }
+    .day-form input, .day-form select, .day-form textarea,
+    .excel-form select {
+      padding:6px; border-radius:5px; border:1px solid #ccc;
+    }
+    .buttons { display:flex; justify-content:space-between; margin-top:15px; }
+    button { padding:8px 12px; border:none; border-radius:6px; cursor:pointer; }
+    button.add { background:#4caf50; color:#fff; }
+    button.cancel { background:#f44336; color:#fff; }
+    button.delete-btn { background:#f44336; color:#fff; margin-left:10px; }
+    button.export-btn { background:#4caf50; color:#fff; }
+    button.cancel-btn { background:#f44336; color:#fff; }
+    .paystub-button {
+      background: #2196f3;
+      color: white;
+      padding: 8px 12px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+
+<script src="dataService.js"></script>
+  <script>
+    let selectedYear=2025, selectedMonth=8, editingRowId=null;
+
+    // parse "HH:MM" to total minutes
+     function parseTimeStr(str) {
+      if (!str) return 0;
+      const [hh, mm] = str.split(":");
+      return parseInt(hh || "0", 10) * 60 + parseInt(mm || "0", 10);
+    }
+
+    // For "normal" day (or "chag"/"erev-chag" with special threshold)
+function calcNormalDayHours(dayType, startVal, endVal, breakVal) {
+  const workRules = appData.userSettings?.workRules || {};
+  const overtimeType = workRules.overtimeType || "daily";
+  const threshold = workRules.dailyHours || 8;
+  const shortThreshold = workRules.shortDayHours || 7;
+  const wage = appData.userSettings?.hourlyWage || 50;
+
+  const startM = parseTimeStr(startVal);
+  const endM = parseTimeStr(endVal);
+  let totalM = endM - startM - breakVal;
+  if (totalM < 0) totalM = 0;
+  const totalH = totalM / 60;
+
+  let regularH = 0, extraH1 = 0, extraH2 = 0, amount = 0, extraHours = 0;
+
+  // ניתוח לפי סוג יום
+  if (dayType === "חג") {
+    amount = totalH * wage * 1.5;
+    extraHours = totalH;
+
+  } else if (dayType === "ערב חג") {
+    if (totalH <= shortThreshold) {
+      amount = totalH * wage;
+    } else {
+      const over = totalH - shortThreshold;
+      extraH1 = Math.min(over, 2);
+      extraH2 = Math.max(over - 2, 0);
+      amount = (shortThreshold * wage) + (extraH1 * wage * 1.25) + (extraH2 * wage * 1.5);
+      extraHours = extraH1 + extraH2;
+    }
+
+  } else if (dayType === "שבת") {
+    amount = totalH * wage * 1.5;
+    extraHours = totalH;
+
+  } else if (dayType === "שישי") {
+    const isFiveDaySector = (workRules.dailyHours === 8.6);
+
+    if (isFiveDaySector) {
+      // כל שישי נחשב שעות נוספות
+      extraH1 = Math.min(totalH, 2);
+      extraH2 = Math.max(totalH - 2, 0);
+      amount = (extraH1 * wage * 1.25) + (extraH2 * wage * 1.5);
+      extraHours = totalH;
+
+    } else {
+      // שישי במגזר 6 ימים
+      if (totalH <= 5) {
+        amount = totalH * wage;
+        regularH = totalH;
+      } else {
+        regularH = 5;
+        const over = totalH - 5;
+        extraH1 = Math.min(over, 2); // שעות 5–7
+        extraH2 = Math.max(over - 2, 0); // מעל 7
+        amount = (regularH * wage) + (extraH1 * wage * 1.25) + (extraH2 * wage * 1.5);
+        extraHours = extraH1 + extraH2;
+      }
+    }
+
+  } else if (overtimeType === "daily") {
+    if (totalH <= threshold) {
+      regularH = totalH;
+      amount = totalH * wage;
+    } else {
+      regularH = threshold;
+      const over = totalH - threshold;
+      extraH1 = Math.min(over, 2);
+      extraH2 = Math.max(over - 2, 0);
+      amount = (regularH * wage) + (extraH1 * wage * 1.25) + (extraH2 * wage * 1.5);
+      extraHours = extraH1 + extraH2;
+    }
+
+  } else {
+    // weekly / none
+    amount = totalH * wage;
+    extraHours = 0;
+  }
+
+  return { totalHours: totalH, extraHours, amount };
+}
+
+   
+    // Hide or show time/break fields depending on dayType
+    function onDayTypeChange(dayType) {
+      const timeRows = document.querySelectorAll('.time-row');
+      const breakRow = document.querySelector('.break-row');
+      if(dayType==="חופש"||dayType==="מחלה"||dayType==="מילואים") {
+        timeRows.forEach(r=>{
+          r.style.display="none";
+          r.querySelectorAll('input').forEach(i=> i.disabled=true);
+        });
+        breakRow.style.display="none";
+        breakRow.querySelector('input').disabled=true;
+      } else {
+        // regular, chag, erev chag
+        timeRows.forEach(r=>{
+          r.style.display="flex";
+          r.querySelectorAll('input').forEach(i=> i.disabled=false);
+        });
+        breakRow.style.display="flex";
+        breakRow.querySelector('input').disabled=false;
+      }
+    }
+
+ function getSickDaySequence(dateVal) {
+  const [yyyy, mm, dd] = dateVal.split("-").map(Number);
+  let currentDate = new Date(yyyy, mm - 1, dd);
+  let sequence = 1;
+
+  while (true) {
+    currentDate.setDate(currentDate.getDate() - 1);
+    const y = currentDate.getFullYear();
+    const m = currentDate.getMonth() + 1;
+    const d = currentDate.getDate().toString().padStart(2, '0');
+    const mStr = m.toString().padStart(2, '0');
+    const prevStr = `${y}-${mStr}-${d}`;
+
+    const monthly = getMonthlyData(y, m);
+    const prevRow = monthly.timesheet.find(r => r.date === prevStr);
+
+    if (!prevRow) break;
+    if (prevRow.dayType === "מחלה") {
+      sequence++;
+    } else {
+      break;
+    }
+  }
+
+  return sequence;
+}
+   function calcSpecialDayPay(dayType, dateVal) {
+  const s = appData.specialDaysSettings || {};
+  const wage = (appData.userSettings && appData.userSettings.hourlyWage) || 50;
+      if(dayType==="מילואים") {
+        return s.milAmount||300;
+      } else if(dayType==="חופש") {
+        // e.g. 8 hours * 100%
+        const vac= s.vacation||{ hours:8, percent:100 };
+        const h= vac.hours||8;
+        const p= (vac.percent||100)/100;
+        return h*p*wage;
+      } else  if (dayType === "מחלה") {
+    const monthly = getMonthlyData(selectedYear, selectedMonth);
+    const sequence = getSickDaySequence(dateVal, monthly);
+
+    const sd = s.sickDays || {};
+    let percent = 0;
+
+    if (sequence === 1) percent = sd.day1?.percent ?? 0;
+    else if (sequence === 2) percent = sd.day2?.percent ?? 0;
+    else if (sequence === 3) percent = sd.day3?.percent ?? 0;
+    else percent = sd.day4Plus?.percent ?? 100;
+
+   const workRules = appData.userSettings?.workRules || {};
+const hours = workRules.dailyHours || 8;
+    const amount = (percent / 100) * hours * wage;
+    return amount;
+  }
+
+  return 0;
+}
+
+    function openDayFormNew(){
+      editingRowId=null;
+      document.getElementById('dayFormTitle').textContent="הוספת יום";
+      document.getElementById('deleteBtn').style.display="none";
+
+      const f= document.getElementById('dayForm');
+      f.reset();
+      f.querySelector('input[name="dailyBreak"]').value=30;
+      document.querySelectorAll('.time-row').forEach(r=>{
+        r.style.display="flex"; 
+        r.querySelectorAll('input').forEach(i=> i.disabled=false);
+      });
+      const br= document.querySelector('.break-row');
+      br.style.display="flex";
+      br.querySelector('input').disabled=false;
+
+      document.getElementById('dayFormOverlay').classList.add('show');
+    }
+
+    function closeDayForm(){
+      document.getElementById('dayFormOverlay').classList.remove('show');
+    }
+
+    function openEditForm(rowId){
+      editingRowId=rowId;
+      document.getElementById('dayFormTitle').textContent="עריכת יום";
+      document.getElementById('deleteBtn').style.display="inline-block";
+
+      const monthly= getMonthlyData(selectedYear, selectedMonth);
+      const row= monthly.timesheet.find(r=> r.id===rowId);
+      if(!row) return;
+
+      const f= document.getElementById('dayForm');
+      f.querySelector('input[type="date"]').value= row.date||"";
+      f.querySelector('select[name="dayType"]').value= row.dayType||"רגיל";
+      f.querySelector('input[name="dailyBreak"]').value= row.breakVal||30;
+      f.querySelector('select[name="nightVal"]').value= row.nightVal||"לא";
+      f.querySelector('textarea[name="notes"]').value= row.notes||"";
+
+      // if its sick, miluim, vac => hide times
+      if(row.dayType==="חופש"||row.dayType==="מחלה"||row.dayType==="מילואים") {
+        document.querySelectorAll('.time-row').forEach(r=>{
+          r.style.display="none";
+          r.querySelectorAll('input').forEach(i=> i.disabled=true);
+        });
+        const br= document.querySelector('.break-row');
+        br.style.display="none";
+        br.querySelector('input').disabled=true;
+      } else {
+        // normal day / chag / erev chag
+        document.querySelectorAll('.time-row').forEach(rr=>{
+          rr.style.display="flex";
+          rr.querySelectorAll('input').forEach(i=> i.disabled=false);
+        });
+        const br= document.querySelector('.break-row');
+        br.style.display="flex";
+        br.querySelector('input').disabled=false;
+
+        if(row.start) f.querySelectorAll('input[type="time"]')[0].value= row.start;
+        if(row.end)   f.querySelectorAll('input[type="time"]')[1].value= row.end;
+      }
+
+      document.getElementById('dayFormOverlay').classList.add('show');
+    }
+
+    function handleDeleteDay(){
+      if(!editingRowId) return;
+      const monthly= getMonthlyData(selectedYear,selectedMonth);
+      const idx= monthly.timesheet.findIndex(r=>r.id===editingRowId);
+      if(idx!==-1){
+        monthly.timesheet.splice(idx,1);
+        saveData();
+      }
+      redrawTable();
+      closeDayForm();
+    }
+
+    function handleDayFormSubmit(e){
+      e.preventDefault();
+      const f= e.target;
+
+      const dateVal= f.querySelector('input[type="date"]').value;
+      if(!dateVal)return;
+      const [yyStr,mmStr,ddStr]= dateVal.split("-");
+      const dayYear = parseInt(yyStr,10), dayMonth=parseInt(mmStr,10);
+
+      let dayType = f.querySelector('select[name="dayType"]').value;
+const dayOfWeek = new Date(dateVal).getDay();
+
+// שישי = 5, שבת = 6
+if (dayOfWeek === 5) {
+  dayType = "שישי";
+} else if (dayOfWeek === 6) {
+  dayType = "שבת";
+}
+// בעתיד נוכל להוסיף פה בדיקה לחגים וערבי חג לפי לוח שנה
+      const breakVal= parseInt(f.querySelector('input[name="dailyBreak"]').value||"0",10);
+      const nightVal= f.querySelector('select[name="nightVal"]').value||"לא";
+      const notesVal= f.querySelector('textarea[name="notes"]').value||"";
+
+      let totalHours=0, extraHours=0, amount=0;
+      if(dayType==="חופש"||dayType==="מחלה"||dayType==="מילואים") {
+        // no hours, special pay
+        totalHours=0;
+        extraHours=0;
+        amount= calcSpecialDayPay(dayType, dateVal);
+      } else {
+        // normal day or chag / erev chag
+        const startVal= f.querySelectorAll('input[type="time"]')[0].value||"";
+        const endVal  = f.querySelectorAll('input[type="time"]')[1].value||"";
+        const { totalHours:th, extraHours:ex, amount:am } = calcNormalDayHours(dayType,startVal,endVal,breakVal);
+        totalHours=th; extraHours=ex; amount=am;
+      }
+
+      const monthlyOld= getMonthlyData(selectedYear,selectedMonth);
+      const monthlyNew= getMonthlyData(dayYear, dayMonth);
+
+      if(!editingRowId) {
+        // add new
+        const newId= "day-"+Date.now();
+        const rowObj={
+          id: newId,
+          date: dateVal,
+          dayType, breakVal, nightVal, notes: notesVal,
+          totalHours, extraHours, amount
+        };
+        if(dayType!=="חופש" && dayType!=="מחלה" && dayType!=="מילואים"){
+          // store start/end
+          rowObj.start= f.querySelectorAll('input[type="time"]')[0].value||"";
+          rowObj.end  = f.querySelectorAll('input[type="time"]')[1].value||"";
+        }
+      // הוספה לפי סדר תאריכים
+let insertIndex = monthlyNew.timesheet.findIndex(r => {
+  if (r.date > rowObj.date) return true;
+  if (r.date === rowObj.date) {
+    const rStart = parseTimeStr(r.start || "00:00");
+    const newStart = parseTimeStr(rowObj.start || "00:00");
+    return newStart < rStart;
+  }
+  return false;
+});
+
+if (insertIndex === -1) {
+  monthlyNew.timesheet.push(rowObj);
+} else {
+  monthlyNew.timesheet.splice(insertIndex, 0, rowObj);
+}      } else {
+        // edit
+        const oldRow= monthlyOld.timesheet.find(r=>r.id===editingRowId);
+        if(oldRow){
+          const isNewMonth= (dayYear!==selectedYear || dayMonth!==selectedMonth);
+          if(isNewMonth){
+            monthlyOld.timesheet= monthlyOld.timesheet.filter(r=>r.id!==editingRowId);
+            const rowObj={
+              id: editingRowId,
+              date: dateVal,
+              dayType, breakVal, nightVal, notes: notesVal,
+              totalHours, extraHours, amount
+            };
+            if(dayType!=="חופש"&&dayType!=="מחלה"&&dayType!=="מילואים"){
+              rowObj.start= f.querySelectorAll('input[type="time"]')[0].value||"";
+              rowObj.end  = f.querySelectorAll('input[type="time"]')[1].value||"";
+            }
+            monthlyNew.timesheet.push(rowObj);
+          } else {
+            // same month
+            oldRow.date= dateVal;
+            oldRow.dayType=dayType;
+            oldRow.breakVal=breakVal;
+            oldRow.nightVal=nightVal;
+            oldRow.notes=notesVal;
+            oldRow.totalHours=totalHours;
+            oldRow.extraHours=extraHours;
+            oldRow.amount=amount;
+            if(dayType!=="חופש"&&dayType!=="מחלה"&&dayType!=="מילואים"){
+              oldRow.start= f.querySelectorAll('input[type="time"]')[0].value||"";
+              oldRow.end  = f.querySelectorAll('input[type="time"]')[1].value||"";
+            } else {
+              oldRow.start="";
+              oldRow.end="";
+            }
+          }
+        }
+      }
+
+saveData();
+setCurrentMonth(dayYear, dayMonth);
+closeDayForm();
+localStorage.setItem("detailedYear", dayYear);
+localStorage.setItem("detailedMonth", dayMonth);
+    }
+
+    // Drawing the table
+    function redrawTable(){
+      const monthly= getMonthlyData(selectedYear,selectedMonth);
+      const body= document.getElementById('timesheetBody');
+      body.innerHTML="";
+
+      let sumH=0, sumAmt=0;
+      monthly.timesheet.forEach(r=>{
+        const tr= document.createElement('tr');
+        tr.innerHTML=`
+          <td>${r.date}</td>
+          <td>${r.start||""}</td>
+          <td>${r.end||""}</td>
+          <td>${r.dayType||""}</td>
+          <td>${r.breakVal||0}</td>
+          <td>${r.nightVal||"לא"}</td>
+          <td>${(r.totalHours||0).toFixed(2)}</td>
+          <td>${(r.extraHours||0).toFixed(2)}</td>
+          <td>₪${(r.amount||0).toFixed(2)}</td>
+          <td>${r.notes||""}</td>
+        `;
+        tr.addEventListener('click', ()=> openEditForm(r.id));
+        body.appendChild(tr);
+
+        sumH += (r.totalHours||0);
+        sumAmt+= (r.amount||0);
+      });
+      document.getElementById('totalHours').textContent= sumH.toFixed(2);
+      document.getElementById('totalAmount').textContent="₪"+sumAmt.toFixed(2);
+    }
+
+    // Month/year
+    function updateMonthYearDisplay(){
+      const monthNames=["ינואר","פברואר","מרץ","אפריל","מאי","יוני","יולי","אוגוסט","ספטמבר","אוקטובר","נובמבר","דצמבר"];
+      document.getElementById('monthYearDisplay').textContent= monthNames[selectedMonth-1]+" "+selectedYear;
+    }
+    function prevMonth(){
+      if(selectedMonth>1) selectedMonth--;
+      else{ selectedMonth=12; selectedYear--; }
+      setCurrentMonth(selectedYear,selectedMonth);
+    }
+    function nextMonth(){
+      if(selectedMonth<12) selectedMonth++;
+      else{ selectedMonth=1; selectedYear++; }
+      setCurrentMonth(selectedYear,selectedMonth);
+    }
+    function setCurrentMonth(y,m){
+      selectedYear=y; selectedMonth=m;
+ localStorage.setItem("detailedYear", y);
+  localStorage.setItem("detailedMonth", m);
+      updateMonthYearDisplay();
+      redrawTable();
+    }
+
+    // Excel overlay
+    function openExcelOverlay(){
+      document.getElementById('excelOverlay').classList.add('show');
+      document.getElementById('excelYear').value= selectedYear;
+      document.getElementById('excelMonth').value= selectedMonth;
+    }
+    function closeExcelOverlay(){
+      document.getElementById('excelOverlay').classList.remove('show');
+    }
+ function handleExcelExport() {
+    const y = parseInt(document.getElementById('excelYear').value, 10);
+    const m = parseInt(document.getElementById('excelMonth').value, 10);
+    const monthly = getMonthlyData(y, m);
+    const rows = monthly.timesheet;
+    if (!rows || rows.length === 0) {
+        alert("אין נתונים לחודש שבחרת!");
+        return;
+      }
+      let csv = "תאריך,כניסה,יציאה,סוג יום,הפסקה,לילה/שבת,שעות מחושבות,שעות נוספות,סכום,הערות\n";
+    csv = "\uFEFF" + csv; // הוספת BOM לקידוד UTF-8
+    rows.forEach(r => {
+        csv += [
+            r.date,
+            r.start || "",
+            r.end || "",
+            r.dayType || "",
+            r.breakVal || 0,
+            r.nightVal || "לא",
+            (r.totalHours || 0).toFixed(2),
+            (r.extraHours || 0).toFixed(2),
+            "₪" + (r.amount || 0).toFixed(2),
+            (r.notes || "").replace(/,/g, " ")
+        ].join(",") + "\n";
+    });
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const mm = (m < 10 ? "0" + m : m);
+    const fileName = `Timesheet_${y}-${mm}.csv`;
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = fileName;
+    link.style.display = "none";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+    document.addEventListener('DOMContentLoaded',function(){
+      loadData();
+   const today = new Date();
+setCurrentMonth(today.getFullYear(), today.getMonth() + 1);
+
+      // date/time
+      function refreshDateTime(){
+        const now=new Date();
+        document.getElementById('currentDate').textContent= now.toLocaleDateString('he-IL');
+        document.getElementById('currentTime').textContent= now.toLocaleTimeString('he-IL');
+      }
+      refreshDateTime();
+      setInterval(refreshDateTime,1000);
+
+      document.getElementById('prevMonth').addEventListener('click',prevMonth);
+      document.getElementById('nextMonth').addEventListener('click',nextMonth);
+
+      document.querySelectorAll('.month-button').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const mm= parseInt(btn.getAttribute('data-month'),10);
+          setCurrentMonth(selectedYear,mm);
+        });
+      });
+      document.getElementById('monthYearDisplay').addEventListener('click',()=>{
+        const sel= document.getElementById('yearSelector');
+        sel.style.display=(sel.style.display==="none"||sel.style.display==="")?"inline-block":"none";
+      });
+      document.getElementById('yearSelector').addEventListener('change',()=>{
+        selectedYear= parseInt(document.getElementById('yearSelector').value,10);
+        selectedMonth=1;
+        setCurrentMonth(selectedYear,selectedMonth);
+        document.getElementById('yearSelector').style.display="none";
+      });
+
+      document.getElementById('dayForm').addEventListener('submit', handleDayFormSubmit);
+      document.getElementById('deleteBtn').addEventListener('click', handleDeleteDay);
+
+      // dayType change => hide times if needed
+      document.querySelector('select[name="dayType"]').addEventListener('change',function(){
+        onDayTypeChange(this.value);
+      });
+
+      // Excel overlay
+      document.getElementById('excelCancelBtn').addEventListener('click', closeExcelOverlay);
+      document.getElementById('excelExportBtn').addEventListener('click', handleExcelExport);
+    });
+  </script>
+</head>
+<body>
+  <!-- Navigation / Buttons -->
+  <a href="index.html" class="back-button">←</a>
+  <a href="index.html" class="home-button">🏠</a>
+
+  <div class="container">
+    <!-- top-section: date/time, month nav -->
+    <div class="top-section">
+      <div class="current-datetime">
+        <span id="currentDate"></span> <span id="currentTime"></span>
+      </div>
+
+      <div class="month-year-selector" style="direction:ltr;">
+        <button class="nav-button" id="prevMonth">&larr;</button>
+        <button class="month-year-display" id="monthYearDisplay"></button>
+        <button class="nav-button" id="nextMonth">&rarr;</button>
+        <select id="yearSelector" style="display:none;">
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025" selected>2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+          <option value="2031">2031</option>
+          <option value="2032">2032</option>
+          <option value="2033">2033</option>
+        </select>
+      </div>
+
+      <div class="month-row">
+        <button class="month-button" data-month="1">01</button>
+        <button class="month-button" data-month="2">02</button>
+        <button class="month-button" data-month="3">03</button>
+        <button class="month-button" data-month="4">04</button>
+        <button class="month-button" data-month="5">05</button>
+        <button class="month-button" data-month="6">06</button>
+        <button class="month-button" data-month="7">07</button>
+        <button class="month-button" data-month="8">08</button>
+        <button class="month-button" data-month="9">09</button>
+        <button class="month-button" data-month="10">10</button>
+        <button class="month-button" data-month="11">11</button>
+        <button class="month-button" data-month="12">12</button>
+      </div>
+    </div>
+
+    <!-- middle-section: the actual table -->
+    <div class="middle-section">
+      <div class="timesheet-table">
+        <table>
+          <thead>
+            <tr>
+              <th>תאריך</th>
+              <th>כניסה</th>
+              <th>יציאה</th>
+              <th>סוג יום</th>
+              <th>הפסקה</th>
+              <th>לילה/שבת</th>
+              <th>שעות מחושבות</th>
+              <th>שעות נוספות</th>
+              <th>סכום</th>
+              <th>הערות</th>
+            </tr>
+          </thead>
+          <tbody id="timesheetBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+       <!-- bottom-section: summary -->
+    <div class="bottom-section">
+      <div class="summary-row">
+        <div class="summary-hours">סה"כ שעות: <span id="totalHours">0</span></div>
+        <div class="summary-amount">סה"כ סכום: <span id="totalAmount">₪0</span></div>
+      </div>
+      <div class="action-row">
+        <button class="salary-settings-button" onclick="window.location.href='salary-structure.html'">⚙️ מבנה שכר</button>
+        <button class="add-day-button" onclick="openDayFormNew()">➕ הוסף יום</button>
+        <button class="export-excel-button" onclick="openExcelOverlay()">📤 דוח אקסל</button>
+        <button class="paystub-button" onclick="window.location.href='paystub.html'">📄 הפקת תלוש שכר</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay for add/edit day -->
+  <div id="dayFormOverlay" class="day-form-overlay">
+    <form id="dayForm" class="day-form">
+      <h2 id="dayFormTitle">הוספת יום</h2>
+      <div class="row">
+        <label>תאריך:</label>
+        <input type="date" required>
+      </div>
+      <div class="row time-row">
+        <label>שעת כניסה:</label>
+        <input type="time">
+      </div>
+      <div class="row time-row">
+        <label>שעת יציאה:</label>
+        <input type="time">
+      </div>
+      <div class="row">
+        <label>סוג יום:</label>
+        <select name="dayType">
+          <option>רגיל</option>
+          <option>חופש</option>
+          <option>מחלה</option>
+          <option>מילואים</option>
+          <option>ערב חג</option>
+          <option>חג</option>
+        </select>
+      </div>
+      <div class="row break-row">
+        <label>הפסקה (בדקות):</label>
+        <input type="number" min="0" name="dailyBreak">
+      </div>
+      <div class="row">
+        <label>עבודה בלילה/שבת:</label>
+        <select name="nightVal">
+          <option>לא</option>
+          <option>כן</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>הערה:</label>
+        <textarea name="notes"></textarea>
+      </div>
+      <div class="buttons">
+        <button type="submit" class="add">שמור</button>
+        <button type="button" id="deleteBtn" class="delete-btn">מחק</button>
+        <button type="button" class="cancel" onclick="closeDayForm()">ביטול</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- overlay for excel export -->
+  <div id="excelOverlay" class="excel-overlay">
+    <div class="excel-form">
+      <h2>הורדת דוח אקסל</h2>
+      <div class="row">
+        <label>בחר שנה:</label>
+        <select id="excelYear">
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025" selected>2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+          <option value="2031">2031</option>
+          <option value="2032">2032</option>
+          <option value="2033">2033</option>
+        </select>
+      </div>
+      <div class="row">
+        <label>בחר חודש:</label>
+        <select id="excelMonth">
+          <option value="1">ינואר</option>
+          <option value="2">פברואר</option>
+          <option value="3">מרץ</option>
+          <option value="4">אפריל</option>
+          <option value="5">מאי</option>
+          <option value="6">יוני</option>
+          <option value="7">יולי</option>
+          <option value="8" selected>אוגוסט</option>
+          <option value="9">ספטמבר</option>
+          <option value="10">אוקטובר</option>
+          <option value="11">נובמבר</option>
+          <option value="12">דצמבר</option>
+        </select>
+      </div>
+      <div class="buttons" style="margin-top:15px;">
+        <button class="cancel-btn" id="excelCancelBtn">ביטול</button>
+        <button class="export-btn" id="excelExportBtn">הורדה</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick date/time refresh logic -->
+  <script>
+    function refreshDateTime(){
+      const now=new Date();
+      document.getElementById('currentDate').textContent= now.toLocaleDateString('he-IL');
+      document.getElementById('currentTime').textContent= now.toLocaleTimeString('he-IL');
+    }
+    setInterval(refreshDateTime,1000);
+  </script>
+</body>
+</html>

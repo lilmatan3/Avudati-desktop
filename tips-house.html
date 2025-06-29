@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>קניית דירה / משכנתא</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">קניית דירה / משכנתא</h1>
+
+  <div class="card-grid">
+
+<div class="card-grid">
+
+  <div class="tip-card">
+    <h3>שלבי קניית דירה</h3>
+    <p>מה השלבים בדרך לרכישת דירה – מחיפוש ועד קבלת מפתח</p>
+    <button onclick="openPopup('popup1')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>הון עצמי</h3>
+    <p>כמה כסף צריך כדי להתחיל – ומה הבנקים דורשים?</p>
+    <button onclick="openPopup('popup2')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מסלולי משכנתא</h3>
+    <p>ההבדלים בין ריבית פריים, קבועה, משתנה ועוד – הסבר פשוט</p>
+    <button onclick="openPopup('popup3')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>ייעוץ משכנתא</h3>
+    <p>האם כדאי לקחת יועץ פרטי או להסתפק ביועץ הבנק?</p>
+    <button onclick="openPopup('popup4')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>זכאות למשכנתא</h3>
+    <p>תנאים, מסמכים ותהליך קבלת אישור עקרוני למשכנתא</p>
+    <button onclick="openPopup('popup5')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>מס רכישה</h3>
+    <p>כמה תשלם למס? איך זה משתנה לפי שווי הדירה והאם זו דירה ראשונה?</p>
+    <button onclick="openPopup('popup6')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>בדיקת שמאי</h3>
+    <p>למה הבנק דורש שמאי, ומה עלול להתגלות בבדיקה?</p>
+    <button onclick="openPopup('popup7')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>חוזה רכישה</h3>
+    <p>אילו סעיפים חייבים לבדוק לפני שחותמים על חוזה לדירה?</p>
+    <button onclick="openPopup('popup8')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>עו"ד ברכישת דירה</h3>
+    <p>למה חשוב לשכור עו"ד משלך – ולא להסתמך על עו"ד הקבלן</p>
+    <button onclick="openPopup('popup9')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>הוצאות נלוות</h3>
+    <p>מעבר למחיר הדירה – אילו הוצאות נוספות יש בחישוב הכולל?</p>
+    <button onclick="openPopup('popup10')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>בדיקת טאבו</h3>
+    <p>איך בודקים שהנכס רשום בטאבו, ומה המשמעות של "חברה משכנת"?</p>
+    <button onclick="openPopup('popup11')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>החזר חודשי</h3>
+    <p>איך מחשבים מה יהיה גובה ההחזר החודשי – ואיך יודעים שנעמוד בו?</p>
+    <button onclick="openPopup('popup12')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>סוגי ריביות</h3>
+    <p>מה ההבדל בין פריים, קבועה לא צמודה, משתנה כל 5 – ואיך זה משפיע עליך?</p>
+    <button onclick="openPopup('popup13')">לפרטים</button>
+  </div>
+
+  <div class="tip-card">
+    <h3>השוואת הצעות</h3>
+    <p>איך משווים בין הצעות משכנתא מבנקים שונים – ומה לשאול בכל פגישה?</p>
+    <button onclick="openPopup('popup14')">לפרטים</button>
+  </div>
+
+</div>
+
+  </div>
+
+  <!-- פופאפים ריקים -->
+<!-- popup1: שלבי קניית דירה -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>📋 שלבי קניית דירה</h2>
+    <p>
+      תהליך רכישת דירה כולל מספר שלבים:
+      <ol>
+        <li>הגדרת תקציב והון עצמי</li>
+        <li>בדיקת זכאות למשכנתא</li>
+        <li>חיפוש דירה והשוואה</li>
+        <li>חתימה על זיכרון דברים / חוזה</li>
+        <li>בקשת משכנתא מהבנק</li>
+        <li>בדיקות שמאי וטאבו</li>
+        <li>חתימה על מסמכי המשכנתא והעברת תשלום</li>
+        <li>רישום הנכס בטאבו</li>
+      </ol>
+      חשוב להתייעץ עם עו"ד וללוות את התהליך ביועץ מקצועי במידת הצורך.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: הון עצמי -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>💰 הון עצמי</h2>
+    <p>
+      הון עצמי הוא הסכום שצריך להביא מהבית לצורך רכישת דירה.
+      <br><br>
+      <strong>מינימום נדרש לפי בנק ישראל:</strong>
+      <ul>
+        <li>דירה ראשונה – לפחות 25% משווי הדירה</li>
+        <li>דירה להשקעה – לפחות 50%</li>
+        <li>משפרי דיור – לפחות 30%</li>
+      </ul>
+      מעבר לכך, כדאי להשאיר רזרבה להוצאות נוספות (עו"ד, מס רכישה, שמאי, שיפוצים וכו').
+    </p>
+  </div>
+</div>
+
+<!-- popup3: מסלולי משכנתא -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>📈 מסלולי משכנתא</h2>
+    <p>
+      משכנתא מורכבת ממסלולים שונים:
+      <ul>
+        <li>פריים – ריבית משתנה לפי ריבית בנק ישראל</li>
+        <li>קבועה לא צמודה – ריבית קבועה, תשלום קבוע</li>
+        <li>משתנה כל 5 / 7 שנים – עם ריבית שמתעדכנת תקופתית</li>
+        <li>צמודה למדד / לא צמודה</li>
+      </ul>
+      כל מסלול משפיע על גובה ההחזר, הסיכון, ויכולת היציאה בעתיד.  
+      תמהיל נכון הוא שילוב בין יציבות לגמישות.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: ייעוץ משכנתא -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>🧑‍💼 ייעוץ משכנתא</h2>
+    <p>
+      יועץ משכנתאות פרטי לא עובד אצל הבנק – אלא בשבילך.  
+      תפקידו:
+      <ul>
+        <li>לנתח את הצרכים הכלכליים שלך</li>
+        <li>לבנות תמהיל מותאם אישית</li>
+        <li>לנהל מו"מ מול הבנקים</li>
+        <li>ללוות אותך עד החתימה</li>
+      </ul>
+      השירות בתשלום, אך במקרים רבים החיסכון בריבית שווה את זה.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: זכאות למשכנתא -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>✅ זכאות למשכנתא</h2>
+    <p>
+      כדי לקבל אישור עקרוני מהבנק תצטרכו להציג:
+      <ul>
+        <li>תלושי שכר / דוחות הכנסה</li>
+        <li>אישורי מס</li>
+        <li>דו"ח בנקאי (תנועות, התחייבויות)</li>
+        <li>מסמכים מזהים ורקע על הדירה</li>
+      </ul>
+      כל בנק בוחן את רמת ההכנסה, היסטוריית אשראי, והיקף ההלוואה לעומת הנכס.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: מס רכישה -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>📑 מס רכישה</h2>
+    <p>
+      מס שמשולם למדינה בעת קניית דירה.  
+      <ul>
+        <li>על דירה ראשונה – יש פטור עד סכום מסוים (כ-1.9 מיליון ₪)</li>
+        <li>על דירה שנייה – מדרגות מס גבוהות יותר (8%–10%)</li>
+      </ul>
+      המס מחושב לפי שווי הדירה – לא לפי גובה המשכנתא.  
+      תשלום המס מתבצע תוך 60 יום מרגע החתימה על חוזה.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: בדיקת שמאי -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>🔍 בדיקת שמאי</h2>
+    <p>
+      השמאי הוא מי שמעריך את שווי הדירה – בעבור הבנק.  
+      אם השמאי מעריך את הדירה בפחות מהמחיר ששילמתם – הבנק ייתן משכנתא לפי ההערכה, לא לפי המחיר!<br><br>
+      לכן חשוב לוודא שהמחיר שאתם משלמים מתאים למחיר השוק.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: חוזה רכישה -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>📃 חוזה רכישה</h2>
+    <p>
+      חוזה רכישת דירה הוא מסמך משפטי מחייב.  
+      חשוב לוודא שיש בו:
+      <ul>
+        <li>פרטי הנכס המדויקים (גוש, חלקה, תת חלקה)</li>
+        <li>לוחות זמנים לתשלום</li>
+        <li>התחייבות לרישום בטאבו</li>
+        <li>סעיף ביטול ותנאים מתלים</li>
+      </ul>
+      החוזה נחתם בליווי עו"ד – שמייצג אתכם בלבד.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: עו"ד ברכישת דירה -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>⚖️ עו"ד ברכישת דירה</h2>
+    <p>
+      עו"ד המתמחה בנדל"ן ילווה אתכם בכל התהליך:
+      <ul>
+        <li>בדיקת טאבו וזכויות</li>
+        <li>ניסוח / תיקון חוזה</li>
+        <li>תיאום עם הבנק</li>
+        <li>רישום בטאבו / חברה משכנת</li>
+      </ul>
+      מומלץ לבחור עו"ד מנוסה שאינו מייצג את הצד השני (קבלן או מוכר).
+    </p>
+  </div>
+</div>
+
+<!-- popup10: הוצאות נלוות -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>💸 הוצאות נלוות</h2>
+    <p>
+      מעבר למחיר הדירה, ישנן הוצאות נוספות שצריך להביא בחשבון:
+      <ul>
+        <li>שכר טרחת עו"ד (0.5%–1.5%)</li>
+        <li>דמי פתיחת תיק בבנק</li>
+        <li>מס רכישה</li>
+        <li>שמאות</li>
+        <li>תיווך (אם היה)</li>
+        <li>ריהוט, שיפוצים והובלה</li>
+      </ul>
+      ההוצאות האלו מצטברות – והן לא חלק מהמשכנתא.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: בדיקת טאבו -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>🗂️ בדיקת טאבו</h2>
+    <p>
+      הטאבו הוא הרישום המשפטי של הדירה.  
+      חשוב לבדוק שהנכס רשום על שם המוכר, שאין עיקולים או הערות אזהרה, ושאין חריגות בנייה.  
+      בדירות מקבלן – ייתכן שהרישום עדיין מתבצע בחברה משכנת – גם כאן נדרשת בדיקה.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: החזר חודשי -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>📆 החזר חודשי</h2>
+    <p>
+      ההחזר החודשי הוא התשלום שתשלמו לבנק בכל חודש.  
+      הבנקים דורשים שלא יעלה על כ־40% מהכנסה נטו.<br><br>
+      השתמשו במחשבון משכנתא כדי להעריך החזר חודשי לפי סכום, ריבית ותקופה – וודאו שתעמדו בו גם בתנודתיות.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: סוגי ריביות -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>📊 סוגי ריביות</h2>
+    <p>
+      קיימים 3 סוגי ריביות עיקריים:
+      <ul>
+        <li>ריבית פריים – צמודה לריבית בנק ישראל, נחשבת יציבה יחסית</li>
+        <li>ריבית קבועה לא צמודה – לא משתנה כלל</li>
+        <li>ריבית משתנה – מתעדכנת כל מספר שנים (כל 5, כל 7 וכו')</li>
+      </ul>
+      חשוב להבין איך כל מסלול משפיע על הסיכון וההחזר בטווח הארוך.
+    </p>
+  </div>
+</div>
+
+<!-- popup14: השוואת הצעות -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>📑 השוואת הצעות</h2>
+    <p>
+      אל תסגרו משכנתא בלי להשוות בין בנקים!  
+      בקשו הצעה לפחות מ-3 גופים שונים, השוו:
+      <ul>
+        <li>גובה הריבית בכל מסלול</li>
+        <li>אפשרות לפרעון מוקדם</li>
+        <li>תמהיל מותאם ליכולת שלכם</li>
+      </ul>
+      גם חצי אחוז ריבית שווה עשרות אלפי שקלים לאורך השנים.
+    </p>
+  </div>
+</div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

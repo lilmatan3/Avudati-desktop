@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>עובד שכיר</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">עובד שכיר</h1>
+
+  <div class="card-grid">
+
+<div class="tip-card">
+  <h3>ימי חופשה</h3>
+  <p>כמה ימי חופשה מגיעים לך בשנה לפי ותק, היקף משרה ומגזר? ואיך מנצלים אותם?</p>
+  <button onclick="openPopup('popup1')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>ימי מחלה</h3>
+  <p>כמה ימי מחלה מגיעים בשנה? מה גובה התשלום עבור כל יום? והאם ניתן לצבור?</p>
+  <button onclick="openPopup('popup2')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>דמי הבראה</h3>
+  <p>מי זכאי לדמי הבראה? כמה ימים? מה גובה התשלום ליום הבראה, ומתי מקבלים את זה בפועל?</p>
+  <button onclick="openPopup('popup3')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>שעות נוספות</h3>
+  <p>מה נחשב לשעות נוספות? כמה משלמים עליהן? ומה קורה כשעובדים ביום שישי או בשבת?</p>
+  <button onclick="openPopup('popup4')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>שכר מינימום</h3>
+  <p>מהו שכר המינימום המעודכן לפי שעה ולפי חודש? ואיך מחשבים אם אתה זכאי לתוספת?</p>
+  <button onclick="openPopup('popup5')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>תשלום עבור חגים</h3>
+  <p>באילו חגים מגיע תשלום גם אם לא עבדת? מה התנאים לזכאות? ומה קורה אם עבדת בחג?</p>
+  <button onclick="openPopup('popup6')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>נסיעות</h3>
+  <p>מתי המעסיק חייב לשלם לך החזר נסיעות? מה הסכום המקסימלי? ומה הדין כשאתה עובד מהבית?</p>
+  <button onclick="openPopup('popup7')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>שעות כוננות</h3>
+  <p>מה ההבדל בין "שעות כוננות" ל"שעות עבודה בפועל"? האם אתה זכאי לתשלום? ואיך זה מחושב?</p>
+  <button onclick="openPopup('popup8')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>תלוש שכר</h3>
+  <p>איך לקרוא תלוש שכר נכון? אילו רכיבים חייבים להופיע בו? ואיך יודעים אם משהו לא תקין?</p>
+  <button onclick="openPopup('popup9')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>הודעה לעובד</h3>
+  <p>מהו מסמך "הודעה לעובד"? מתי חובה למסור אותו? ואילו פרטים חשובים לבדוק בו?</p>
+  <button onclick="openPopup('popup10')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>פיצויי פיטורין</h3>
+  <p>מתי אתה זכאי לפיצויים? איך מחשבים את הסכום? ומה קורה אם עזבת מיוזמתך?</p>
+  <button onclick="openPopup('popup11')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>חוזה עבודה</h3>
+  <p>מה חשוב לבדוק לפני חתימה על חוזה? אילו זכויות חייבות להיות מעוגנות בו?</p>
+  <button onclick="openPopup('popup12')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>שימוע לפני פיטורין</h3>
+  <p>מהן הזכויות שלך לפני פיטורין? איך נראה הליך שימוע תקין? ואיך כדאי להתכונן?</p>
+  <button onclick="openPopup('popup13')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>פנסיה וקרן השתלמות</h3>
+  <p>מתי המעסיק חייב להתחיל להפריש עבורך? מה ההבדל בין פנסיה לקרן השתלמות? ואיך זה משפיע עליך בעתיד?</p>
+  <button onclick="openPopup('popup14')">לפרטים</button>
+</div>
+
+  <!-- פופאפים ריקים -->
+<!-- popup1: ימי חופשה -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>ימי חופשה</h2>
+    <p>
+      כל עובד זכאי לימי חופשה שנתיים בהתאם לוותק, היקף משרה וסוג ההעסקה (חודשי/יומי).  
+      לפי החוק, בשנה הראשונה מקבלים לפחות 12 ימי חופשה (נטו, לא כולל שבתות וחגים), והמספר עולה עם השנים.<br><br>
+      את ימי החופשה ניתן לצבור עד 3 שנים קדימה, ובחלק מהמקומות יש גם "יום בחירה" – יום חופש לבחירה אישית.  
+      מעסיק מחויב לשלם על ימי החופשה לפי שכר מלא, ואין לקזז ימי חופשה שלא נוצלו בלי הסכמת העובד.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: ימי מחלה -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>ימי מחלה</h2>
+    <p>
+      לכל עובד מגיעים ימי מחלה על פי חוק – 1.5 ימי מחלה לכל חודש עבודה, כלומר 18 ימים בשנה (ניתן לצבור עד 90).<br><br>
+      התשלום עבור ימי מחלה הוא מדורג:
+      <ul>
+        <li>יום ראשון: ללא תשלום</li>
+        <li>יום שני ושלישי: 50% מהשכר</li>
+        <li>מהיום הרביעי ואילך: 100% מהשכר</li>
+      </ul>
+      ניתן להשתמש בימי מחלה גם עבור ילד חולה, בן זוג או הורה, בהתאם למגבלות החוק והצהרות מתאימות.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: דמי הבראה -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>דמי הבראה</h2>
+    <p>
+      דמי הבראה הם תשלום שנתי שניתן לכל עובד/ת שהשלים שנת עבודה אחת לפחות.  
+      מספר ימי ההבראה משתנה לפי הוותק – החל מ־5 ימי הבראה בשנה הראשונה ועד 10 ומעלה בהמשך.<br><br>
+      גובה התשלום ליום נקבע לפי מגזר (פרטי/ציבורי). לדוגמה: במגזר הפרטי לשנת 2024 — כ־378 ש"ח ליום.<br>
+      דמי ההבראה משולמים בדרך כלל בקיץ או בשכר חודשי מיוחד.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: שעות נוספות -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>שעות נוספות</h2>
+    <p>
+      עבודה מעבר לשעות הרגילות נחשבת "שעות נוספות" ומזכה בתשלום מוגדל:<br>
+      <ul>
+        <li>שעתיים ראשונות ביום: 125% מהשכר</li>
+        <li>שעה שלישית והלאה: 150% מהשכר</li>
+      </ul>
+      עבודה בשישי, שבת, חגים ולילה – מזכה בתוספות מיוחדות נוספות.  
+      יש לוודא שהשעות נרשמות ושהמעסיק משלם לפי חוק שעות עבודה ומנוחה.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: שכר מינימום -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>שכר מינימום</h2>
+    <p>
+      שכר מינימום חודשי נכון ל־2024 הוא 5,571 ש"ח (למשרה מלאה של 186 שעות),  
+      ושכר מינימום לשעה הוא 29.12 ש"ח.<br><br>
+      מעסיק אינו רשאי לשלם שכר נמוך משכר המינימום. עובדים זכאים לפיצוי רטרואקטיבי אם קיבלו פחות.<br>
+      גם תלמידים וסטודנטים זכאים לשכר מינימום – כולל בתקופת ניסיון.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: תשלום עבור חגים -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>תשלום עבור חגים</h2>
+    <p>
+      עובד שעבד לפחות 3 חודשים וזמין לעבודה – זכאי לתשלום עבור 9 חגי חובה בשנה.  
+      תשלום זה חל גם אם לא עבד בפועל באותו חג.<br><br>
+      אם כן עבד ביום חג, יש לשלם לו לפחות 150% שכר, ובחלק מהמקרים גם תוספת של שעות נוספות או יום מנוחה חלופי.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: נסיעות -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>נסיעות</h2>
+    <p>
+      המעסיק חייב להחזיר לעובד הוצאות נסיעה בפועל – אך לא יותר מהמקסימום הקבוע בחוק (נכון ל־2024: 22.60 ש"ח ליום).<br><br>
+      גם עובדים שגרים קרוב זכאים להחזר אם מגיעים לעבודה בתחבורה ציבורית או רכב.  
+      לא נדרש להציג קבלות על הנסיעות, אלא אם הוסכם אחרת בחוזה.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: שעות כוננות -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>שעות כוננות</h2>
+    <p>
+      כוננות היא מצב שבו העובד אינו עובד בפועל אך נדרש להיות זמין לקריאה מיידית לעבודה.<br><br>
+      התשלום עבור שעות כוננות משתנה לפי הסכם העבודה ופסיקות בית הדין.  
+      במקרים רבים משלמים אחוז קבוע משכר שעה רגילה, גם אם העובד לא הופעל בפועל.
+    </p>
+  </div>
+</div>
+
+<!-- popup9: תלוש שכר -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>תלוש שכר</h2>
+    <p>
+      תלוש שכר חייב לכלול את כל רכיבי התשלום והניכוי: שכר בסיס, שעות נוספות, דמי נסיעה, פנסיה, מסים ועוד.<br><br>
+      חובה להנפיק תלוש כל חודש – גם אם לא שולם שכר בפועל (למשל חופשה ללא תשלום).  
+      על העובד לבדוק את התלוש, ולפנות למעסיק במקרה של טעות.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: הודעה לעובד -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>הודעה לעובד</h2>
+    <p>
+      כל עובד חייב לקבל מהמעסיק תוך 7 ימים מסמך בשם "הודעה לעובד".  
+      במסמך זה מפורטים תנאי ההעסקה: שכר, תפקיד, שעות עבודה, ימי חופשה, פנסיה ועוד.<br><br>
+      אי מסירת ההודעה היא עבירה פלילית ונותנת לעובד עילה לתביעה.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: פיצויי פיטורין -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>פיצויי פיטורין</h2>
+    <p>
+      עובד שפוטר לאחר שנת עבודה לפחות (במשרה של לפחות יומיים בשבוע) זכאי לפיצויי פיטורין.<br><br>
+      הפיצויים מחושבים לפי: <strong>שכר חודשי × שנות ותק</strong>.  
+      קיימות נסיבות מסוימות שבהן גם עובד שהתפטר יקבל פיצויים (למשל לצורך טיפול בילד).
+    </p>
+  </div>
+</div>
+
+<!-- popup12: חוזה עבודה -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>חוזה עבודה</h2>
+    <p>
+      חוזה העבודה מסדיר את היחסים בין העובד למעסיק – אך אינו גובר על זכויות בסיס בחוק!  
+      יש לוודא שהחוזה כולל שכר, שעות, חופשות, ימי מחלה, פנסיה והפרשות נוספות.<br><br>
+      כל סעיף שמנוגד לחוק (למשל ויתור על הבראה) – בטל מעצם החוק.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: שימוע לפני פיטורין -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>שימוע לפני פיטורין</h2>
+    <p>
+      לפני פיטורין – חובה לקיים שימוע שבו תינתן לעובד הזדמנות להשמיע את טענותיו.  
+      ההודעה לשימוע צריכה להינתן מראש ובכתב, עם פירוט הסיבות האפשריות לפיטורין.<br><br>
+      השימוע חייב להיות כן ואמיתי, ולא "תוצאה סגורה מראש".
+    </p>
+  </div>
+</div>
+
+<!-- popup14: פנסיה וקרן השתלמות -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>פנסיה וקרן השתלמות</h2>
+    <p>
+      כל עובד זכאי להפרשות לפנסיה לאחר 6 חודשי עבודה (או 3 חודשים אם כבר היה מבוטח במקום אחר).<br><br>
+      גובה ההפרשות (נכון ל־2024):  
+      <ul>
+        <li>המעסיק – 6.5% לפנסיה + 6% לפיצויים</li>
+        <li>העובד – 6% מהשכר</li>
+      </ul>
+      קרן השתלמות היא הטבה נוספת – אינה חובה, אך מקובלת במגזרים רבים.  
+      ההפרשות לקרן השתלמות פטורות ממס בגבולות מסוימים.
+    </p>
+  </div>
+</div>
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

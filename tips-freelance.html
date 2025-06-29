@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>עצמאי / פרילנסר</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #fdf0f3;
+      margin: 0;
+      padding: 0;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #f0f0f0;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      margin: 20px 0;
+      font-size: 26px;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
+    .tip-card {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .tip-card h3 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .tip-card p {
+      font-size: 16px;
+    }
+
+    .tip-card button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      border: none;
+      background-color: #e91e63;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      z-index: 99;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+    }
+
+    .popup-content {
+      background-color: white;
+      margin: 10% auto;
+      padding: 20px;
+      width: 90%;
+      max-width: 500px;
+      border-radius: 10px;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      font-size: 22px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #999;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-nav">
+    <a href="tips.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1 class="subheader">עצמאי / פרילנסר</h1>
+
+  <div class="card-grid">
+
+<div class="tip-card">
+  <h3>פתיחת תיק עוסק</h3>
+  <p>איך פותחים תיק כעוסק פטור או עוסק מורשה? מה ההבדל ביניהם ואילו טפסים צריך להגיש?</p>
+  <button onclick="openPopup('popup1')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>ביטוח לאומי לעצמאי</h3>
+  <p>מהם דמי הביטוח שאדם עצמאי חייב לשלם? איך קובעים מקדמות ומה הדיווחים הדרושים?</p>
+  <button onclick="openPopup('popup2')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>מס הכנסה לעצמאי</h3>
+  <p>איך פותחים תיק במס הכנסה? מה חשוב לדעת על תשלומים, דיווחים והצהרת הון?</p>
+  <button onclick="openPopup('popup3')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>מע”מ לעצמאים</h3>
+  <p>מתי חייבים להירשם כעוסק במע”מ? איך מגישים דיווחים חודשיים או דו-חודשיים?</p>
+  <button onclick="openPopup('popup4')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>מקדמות</h3>
+  <p>איך מס הכנסה וביטוח לאומי קובעים את גובה המקדמות לעצמאים? ומה לעשות אם ההכנסה משתנה?</p>
+  <button onclick="openPopup('popup5')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>דיווחים שוטפים</h3>
+  <p>מה ההבדל בין דיווח חודשי לרבעוני? האם אתה חייב לשלוח דוחות מקוונים או ידניים?</p>
+  <button onclick="openPopup('popup6')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>הוצאות מוכרות</h3>
+  <p>אילו סוגי הוצאות ניתן לקזז מההכנסה החייבת במס? מה ההבדל בין מוכר מלא למוכר חלקי?</p>
+  <button onclick="openPopup('popup7')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>חשבוניות וקבלות</h3>
+  <p>מתי מנפיקים קבלה? מתי חשבונית? אילו פרטים חובה לכלול וממה כדאי להיזהר?</p>
+  <button onclick="openPopup('popup8')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>מעקב הכנסות והוצאות</h3>
+  <p>איך מנהלים תזרים מזומנים תקין בעסק קטן? ואילו כלים דיגיטליים יכולים לעזור לך?</p>
+  <button onclick="openPopup('popup9')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>ניהול תיק באינטרנט</h3>
+  <p>מה ניתן לעשות דרך האזור האישי ברשויות? ואיך משתמשים במערכות כמו “הישומים החכמים” של מס הכנסה?</p>
+  <button onclick="openPopup('popup10')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>פנסיה לעצמאי</h3>
+  <p>מה אומר החוק לגבי חובת הפקדה לפנסיה לעצמאים? איך בוחרים קרן? ומהי הטבת המס?</p>
+  <button onclick="openPopup('popup11')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>שכיר + עצמאי</h3>
+  <p>איך משלבים בין עבודה כשכיר וניהול עסק עצמאי? ואיך עושים תיאום בין המוסדות?</p>
+  <button onclick="openPopup('popup12')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>תיאום מס לעצמאי</h3>
+  <p>מתי עצמאי צריך לבצע תיאום מס? באילו מקרים משלמים יותר ממה שצריך ואיך מתקנים את זה?</p>
+  <button onclick="openPopup('popup13')">לפרטים</button>
+</div>
+
+<div class="tip-card">
+  <h3>עצמאי ללא הכנסות</h3>
+  <p>מה עושים כשאין הכנסות בעסק? מתי אפשר להקפיא או לסגור תיק, ואיך מדווחים נכון לרשויות?</p>
+  <button onclick="openPopup('popup14')">לפרטים</button>
+</div>
+
+  <!-- פופאפים ריקים -->
+<!-- popup1: פתיחת תיק עוסק -->
+<div id="popup1" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup1')">&times;</span>
+    <h2>פתיחת תיק עוסק</h2>
+    <p>
+      כדי להתחיל לפעול כעצמאי בישראל, יש לפתוח תיקים בשלוש רשויות: מס הכנסה, מע"מ וביטוח לאומי.  
+      ההחלטה האם להיות עוסק פטור או עוסק מורשה תלויה בגובה ההכנסה השנתית המשוערת ובסוג העיסוק (יש מקצועות שחייבים להיות מורשה).<br><br>
+      <strong>עוסק פטור</strong> – לא גובה מע"מ מלקוחות, אך אינו מקבל החזר מע"מ על הוצאות.<br>
+      <strong>עוסק מורשה</strong> – גובה מע"מ ומדווח עליו, זכאי לקזז מע"מ על הוצאות מוכרות.<br><br>
+      ניתן לפתוח את התיקים אונליין דרך אתרי רשות המיסים והביטוח הלאומי, או באמצעות יועץ מס/רואה חשבון.
+    </p>
+  </div>
+</div>
+
+<!-- popup2: ביטוח לאומי לעצמאי -->
+<div id="popup2" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup2')">&times;</span>
+    <h2>ביטוח לאומי לעצמאי</h2>
+    <p>
+      כל עצמאי חייב לדווח על פתיחת עסק לביטוח לאומי בתוך 90 ימים מתחילת הפעילות – גם אם ההכנסה עדיין נמוכה.  
+      התשלום החודשי נקבע לפי הכנסה משוערת, ומשולם כמקדמה.  
+      ישנם שני מדרגות עיקריות:
+      <ul>
+        <li>הכנסה נמוכה – שיעור מופחת (בערך 5.97%)</li>
+        <li>הכנסה גבוהה – שיעור מלא (עד כ־17.8%)</li>
+      </ul>
+      לאחר סיום שנה, נעשית התאמה לפי דיווחים בפועל (שומות ממס הכנסה).  
+      חשוב לעדכן הכנסה אם יש שינוי – כדי להימנע מחוב או תשלום יתר.
+    </p>
+  </div>
+</div>
+
+<!-- popup3: מס הכנסה לעצמאי -->
+<div id="popup3" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup3')">&times;</span>
+    <h2>מס הכנסה לעצמאי</h2>
+    <p>
+      פתיחת תיק במס הכנסה מתבצעת עם התחלת פעילות עצמאית.  
+      העצמאי מקבל תיק נפרד וצריך לדווח על הכנסותיו לאורך השנה באמצעות מקדמות ודוחות.<br><br>
+      בכל שנה יש להגיש:
+      <ul>
+        <li>דו"ח שנתי מלא עם טופס 1301 או מקוצר (עבור הכנסות, הוצאות ונתוני משפחה)</li>
+        <li>דוח ניכויים (אם מעסיקים עובדים)</li>
+        <li>לעיתים גם הצהרת הון</li>
+      </ul>
+      המס מחושב לפי מדרגות מס רגילות, בדומה לשכירים, אך מתבצע חישוב סופי לפי הדו"ח השנתי.
+    </p>
+  </div>
+</div>
+
+<!-- popup4: מע”מ לעצמאים -->
+<div id="popup4" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup4')">&times;</span>
+    <h2>מע”מ לעצמאים</h2>
+    <p>
+      עוסק מורשה חייב להירשם במע"מ ולדווח על עסקאות ורכישות.  
+      הדיווח מתבצע אחת לחודש או חודשיים – תלוי בגובה ההכנסה ובמהות העסק.<br><br>
+      העוסק גובה מע"מ מלקוחות ומדווח על כך, אך גם מקבל החזר על מע"מ ששילם בהוצאות.  
+      עוסק פטור, לעומת זאת, אינו גובה מע"מ – אך גם אינו מקבל החזרים.<br><br>
+      דיווח למע”מ מתבצע דרך אתר רשות המיסים או באמצעות מייצג.
+    </p>
+  </div>
+</div>
+
+<!-- popup5: מקדמות -->
+<div id="popup5" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup5')">&times;</span>
+    <h2>מקדמות</h2>
+    <p>
+      רשות המיסים קובעת לכל עצמאי "מקדמות" – תשלומים חודשיים או דו-חודשיים שמבוססים על הערכת הכנסה.  
+      המקדמות מחושבות כאחוז מהמחזור או הרווח המשוער, ומשולמות במהלך השנה.<br><br>
+      לאחר הגשת הדו"ח השנתי נעשה חישוב מחדש, ואם שילמת יותר – תקבל החזר.  
+      אם שילמת פחות – תידרש להשלים.  
+      ניתן לעדכן את גובה המקדמות אונליין אם צופים שינוי מהותי בהכנסות.
+    </p>
+  </div>
+</div>
+
+<!-- popup6: דיווחים שוטפים -->
+<div id="popup6" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup6')">&times;</span>
+    <h2>דיווחים שוטפים</h2>
+    <p>
+      עצמאים חייבים להגיש דיווחים שוטפים לרשויות – מס הכנסה, מע"מ וביטוח לאומי – על בסיס חודשי או דו-חודשי.  
+      <br><br>
+      <strong>הדיווחים כוללים:</strong>
+      <ul>
+        <li>דוח מע”מ (אם עוסק מורשה) – אחת לחודש או חודשיים</li>
+        <li>מקדמות למס הכנסה – לפי אחוז מהכנסה משוערת</li>
+        <li>תשלום לביטוח לאומי – על בסיס מקדמה חודשית</li>
+      </ul>
+      חשוב להגיש בזמן כדי להימנע מקנסות, ולשמור תיעוד של הקבלות, החשבוניות וההוצאות לצורך דוחות עתידיים.
+    </p>
+  </div>
+</div>
+
+<!-- popup7: הוצאות מוכרות -->
+<div id="popup7" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup7')">&times;</span>
+    <h2>הוצאות מוכרות</h2>
+    <p>
+      הוצאות מוכרות הן הוצאות שקשורות ישירות לפעילות העסקית שלך, ומותר לקזז אותן מההכנסה החייבת במס.  
+      <br><br>
+      <strong>דוגמאות להוצאות מוכרות:</strong>
+      <ul>
+        <li>ציוד משרדי, מחשבים, טלפונים</li>
+        <li>שכירות משרד או חלק מהבית (אם יש חדר עבודה)</li>
+        <li>הוצאות רכב (באחוז חלקי)</li>
+        <li>תשלומים לרואה חשבון/יועץ מס</li>
+      </ul>
+      חלק מההוצאות מוכרות באופן מלא, וחלק מוכרות באופן חלקי בלבד.  
+      חובה לשמור מסמכים מקוריים – קבלות וחשבוניות – לכל הוצאה.
+    </p>
+  </div>
+</div>
+
+<!-- popup8: חשבוניות וקבלות -->
+<div id="popup8" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup8')">&times;</span>
+    <h2>חשבוניות וקבלות</h2>
+    <p>
+      כל עצמאי חייב להנפיק מסמכים מסודרים בעת קבלת תשלום:
+      <br><br>
+      <strong>חשבונית מס:</strong> עוסק מורשה מוציא ללקוח לצורך גביית תשלום כולל מע"מ.  
+      <br>
+      <strong>חשבונית עסקה:</strong> מסמך לא מחייב שניתן לפני התשלום.  
+      <br>
+      <strong>קבלה:</strong> מונפקת עם קבלת התשלום בפועל – חובה לכל עצמאי, גם לעוסק פטור.
+      <br><br>
+      חשוב לכלול את כל הפרטים: שם העסק, תאריך, סכום, תיאור השירות, מספר סידורי ועוד.  
+      מסמכים חייבים להיות לפי סדר רץ ואי אפשר "לדלג".
+    </p>
+  </div>
+</div>
+
+<!-- popup9: מעקב הכנסות והוצאות -->
+<div id="popup9" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup9')">&times;</span>
+    <h2>מעקב הכנסות והוצאות</h2>
+    <p>
+      ניהול תזרים נכון הוא קריטי לעצמאים – גם כדי להבין רווחיות, וגם לצורך דיווחים מסודרים לרשויות.  
+      <br><br>
+      <strong>כלים מומלצים:</strong>
+      <ul>
+        <li>קובץ אקסל פשוט</li>
+        <li>אפליקציות ניהול חשבוניות</li>
+        <li>מערכות דיגיטליות להנהלת חשבונות</li>
+      </ul>
+      יש לעקוב אחר כל ההכנסות, לשייך הוצאות לכל פעולה, לתייק מסמכים – ולהתעדכן עם יועץ מס לפחות אחת לשנה.
+    </p>
+  </div>
+</div>
+
+<!-- popup10: ניהול תיק באינטרנט -->
+<div id="popup10" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup10')">&times;</span>
+    <h2>ניהול תיק באינטרנט</h2>
+    <p>
+      רשות המיסים וביטוח לאומי מציעים אזור אישי שבו ניתן לנהל את התיק העצמאי אונליין – ללא צורך בהגעה פיזית.
+      <br><br>
+      <strong>באזור האישי אפשר:</strong>
+      <ul>
+        <li>לשלם מקדמות</li>
+        <li>להפיק אישורים</li>
+        <li>לשלוח טפסים ולבצע עדכונים</li>
+        <li>לבדוק חובות והחזרים</li>
+      </ul>
+      ניתן גם לעבוד דרך אפליקציות או מערכות מייצגים (רואה חשבון), אך כל עצמאי יכול להירשם חינם ולהשתמש בשירות.
+    </p>
+  </div>
+</div>
+
+<!-- popup11: פנסיה לעצמאי -->
+<div id="popup11" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup11')">&times;</span>
+    <h2>💰 פנסיה לעצמאי</h2>
+    <p>
+      החל משנת 2017 חלה חובת הפקדה לפנסיה גם על עצמאים – מתוקף חוק.  
+      כל עצמאי בגיל 21–60 חייב להפקיד לפנסיה, בהתאם לגובה ההכנסה שלו.<br><br>
+      <strong>הסכום מחושב כך:</strong>
+      <ul>
+        <li>4.45% מהכנסה שנתית עד מחצית השכר הממוצע</li>
+        <li>12.55% על הסכום שמעל מחצית השכר הממוצע ועד לתקרה</li>
+      </ul>
+      מעבר לעמידה בדרישה החוקית, הפקדות לפנסיה מזכות את העצמאי בהטבות מס (ניכוי וזיכוי).  
+      כדאי לבדוק עם סוכן פנסיוני או יועץ מס מה המסלול הנכון עבורך.
+    </p>
+  </div>
+</div>
+
+<!-- popup12: שכיר + עצמאי -->
+<div id="popup12" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup12')">&times;</span>
+    <h2>⚖️ שכיר + עצמאי</h2>
+    <p>
+      אם אתה גם שכיר וגם עצמאי – עליך לנהל את המיסוי והביטוחים בהתאם לשני מקורות ההכנסה.<br><br>
+      <strong>המשמעויות:</strong>
+      <ul>
+        <li>יש לבצע תיאום מס – כדי למנוע גביית יתר במס הכנסה</li>
+        <li>חייבים בדיווח שנתי מלא לרשות המיסים</li>
+        <li>יש לשלם ביטוח לאומי על סך ההכנסות – אך בתקרת תשלום מרבית</li>
+      </ul>
+      ניתן לקבל החזרי מס אם נוצר כפל גבייה במהלך השנה, בעיקר כשלא נעשה תיאום מראש.
+    </p>
+  </div>
+</div>
+
+<!-- popup13: תיאום מס לעצמאי -->
+<div id="popup13" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup13')">&times;</span>
+    <h2>📑 תיאום מס לעצמאי</h2>
+    <p>
+      עצמאי שיש לו מקורות הכנסה נוספים – למשל גם משכורת – חייב לבצע תיאום מס כדי לשלם רק את מה שצריך.  
+      ללא תיאום, עלול להיות מנוכה מס מלא משני מקורות במקביל.<br><br>
+      <strong>איך עושים תיאום?</strong>
+      <ul>
+        <li>אפשר להגיש בקשה באינטרנט (טופס 116)</li>
+        <li>או לפנות לפקיד שומה עם תלושים והצהרות הכנסה</li>
+      </ul>
+      התיאום תקף לשנת מס אחת בלבד ויש לחדשו בכל שנה.  
+      גם עצמאים בלבד עשויים להזדקק לתיאום אם יש להם הכנסות נוספות (כמו שכ"ד, ריבית וכו').
+    </p>
+  </div>
+</div>
+
+<!-- popup14: עצמאי ללא הכנסות -->
+<div id="popup14" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup('popup14')">&times;</span>
+    <h2>🛑 עצמאי ללא הכנסות</h2>
+    <p>
+      גם אם אין לך הכנסות מהעסק – עדיין קיימת חובת דיווח לרשויות כל עוד התיק שלך פתוח.  
+      כדי להפסיק חיובים וקנסות, יש לדווח על הקפאת או סגירת תיק.<br><br>
+      <strong>אפשרויות:</strong>
+      <ul>
+        <li>דיווח על "0 הכנסה" – לשם מניעת קנסות</li>
+        <li>הקפאת תיק זמנית (למשל בתקופת לימודים/שירות)</li>
+        <li>סגירת תיק קבועה – ברגע שהפסקת לפעול</li>
+      </ul>
+      מומלץ לא להשאיר תיק פתוח "סתם", גם אם לא פעיל – זה עלול להוביל לדרישות תשלום עתידיות רטרואקטיביות.
+    </p>
+  </div>
+</div>
+
+
+  <script>
+    function openPopup(id) {
+      document.getElementById(id).style.display = "block";
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = "none";
+    }
+  </script>
+
+</body>
+</html>
