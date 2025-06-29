@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>מס הכנסה (כולל נקודות זיכוי)</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" title="חזרה">←</a>
+    <a href="index.html"      title="בית">🏠</a>
+  </div>
+
+  <h1>מס הכנסה (כולל נקודות זיכוי)</h1>
+  <form id="form">
+    <div>
+      <label for="income">הכנסה חייבת חודשית (₪)</label>
+      <input
+        type="number"
+        id="income"
+        placeholder="למשל 10,000"
+        required
+        min="0"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="taxRate">שיעור מס הכנסה (%)</label>
+      <input
+        type="number"
+        id="taxRate"
+        placeholder="למשל 20"
+        required
+        min="0"
+        max="100"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="creditPoints">נקודות זיכוי</label>
+      <input
+        type="number"
+        id="creditPoints"
+        placeholder="למשל 2.25"
+        required
+        min="0"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="pointValue">ערך נקודה לחודש (₪)</label>
+      <input
+        type="number"
+        id="pointValue"
+        placeholder="למשל 223.65"
+        required
+        min="0"
+        step="0.01"
+      >
+    </div>
+    <button type="submit">חשב מס</button>
+  </form>
+  <div id="result"></div>
+  <script src="calculator-income-tax.js"></script>
+</body>
+</html>

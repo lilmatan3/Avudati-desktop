@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מילון מונחים - תלוש שכר</title>
+  <link rel="stylesheet" href="contractor-employee.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #f8f9fb;
+      padding: 20px;
+      color: #333;
+    }
+
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .top-nav a {
+      font-size: 22px;
+      text-decoration: none;
+      color: #555;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 26px;
+      margin-bottom: 30px;
+    }
+
+    .glossary-section {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .glossary-section h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #1a237e;
+    }
+
+    .glossary-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .glossary-list li {
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .glossary-list li strong {
+      color: #0d47a1;
+    }
+
+    #searchInput {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      margin-bottom: 25px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-nav">
+    <a href="contractor-employee.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📘 מילון מונחים בתלוש עובד קבלן</h1>
+
+  <input type="text" id="searchInput" placeholder="🔍 חפש מונח בתלוש...">
+
+  <div id="glossaryContainer"></div>
+
+  <script type="module">
+    import { glossaryData } from './Glossary-data.js';
+
+    const container = document.getElementById("glossaryContainer");
+
+    glossaryData.forEach(section => {
+      const sectionEl = document.createElement("div");
+      sectionEl.className = "glossary-section";
+
+      const title = document.createElement("h3");
+      title.textContent = section.title;
+      sectionEl.appendChild(title);
+
+      const list = document.createElement("ul");
+      list.className = "glossary-list";
+
+      section.items.forEach(([term, definition]) => {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${term}:</strong> ${definition}`;
+        list.appendChild(li);
+      });
+
+      sectionEl.appendChild(list);
+      container.appendChild(sectionEl);
+    });
+
+    // 🔍 מנוע חיפוש
+    document.getElementById("searchInput").addEventListener("input", () => {
+      const searchTerm = document.getElementById("searchInput").value.trim();
+      const allSections = document.querySelectorAll(".glossary-section");
+
+      allSections.forEach(section => {
+        let matches = false;
+        section.querySelectorAll("li").forEach(li => {
+          const text = li.textContent;
+          if (text.includes(searchTerm)) {
+            li.style.display = "list-item";
+            matches = true;
+          } else {
+            li.style.display = searchTerm ? "none" : "list-item";
+          }
+        });
+        section.style.display = matches || !searchTerm ? "block" : "none";
+      });
+    });
+  </script>
+</body>
+</html>

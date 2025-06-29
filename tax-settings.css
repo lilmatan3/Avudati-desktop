@@ -1,0 +1,254 @@
+/* tax-settings.css - קובץ CSS מלא ומעודכן */
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f7ff;
+  direction: rtl;
+  color: #333;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+h2 {
+  background-color: #6c63ff;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.section {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.row label {
+  flex: 1;
+  font-weight: bold;
+}
+
+.row input[type="number"],
+.row input[type="text"] {
+  flex: 1.5;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  text-align: center;
+}
+
+.row button {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s;
+}
+
+.row button:hover {
+  background-color: #574fcf;
+}
+
+/* Toggle switch styles */
+.toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 25px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  position: absolute;
+  left: -9999px;
+}
+
+.slider {
+  position: absolute;
+  inset: 0; 
+  background-color: #ccc;
+  border-radius: 34px;
+  transition: 0.4s;
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  right: 4px; 
+  bottom: 3.5px;
+  width: 18px;
+  height: 18px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: 0.4s;
+}
+
+.toggle-switch input:checked + .slider {
+  background-color: #6c63ff;
+}
+
+.toggle-switch input:checked + .slider:before {
+  transform: translateX(-26px);
+}
+
+.row.toggle-left {
+  flex-direction: row-reverse;
+}
+
+.row.toggle-left label {
+  text-align: right;
+  flex: 2;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 1.4em;
+  color: #34495e;
+  text-decoration: none;
+}
+
+button.info-button {
+  background-color: #ff6584;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button.info-button:hover {
+  background-color: #e44d6e;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  width: 80%;
+  max-width: 380px;
+  z-index: 100;
+  text-align: center;
+}
+
+.close-popup {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1em;
+  color: #999;
+}
+
+.close-popup:hover {
+  color: #333;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+th {
+  background-color: #8a82ff;
+  color: white;
+}
+
+td {
+  background-color: #fafafa;
+}
+
+.remove-button {
+  background-color: transparent;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.remove-button:hover {
+  color: #c0392b;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .row input[type="number"],
+  .row input[type="text"],
+  .row button,
+  .row label {
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .back-button {
+    font-size: 1.2em;
+    top: 15px;
+    right: 15px;
+  }
+}
+
+/* חצים מותאמים לשדות מספר */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield; /* Firefox */
+  appearance: textfield;
+}
+
+/* קישור ליישובים */
+.settlement-fields a {
+  color: #007bff;
+  text-decoration: underline;
+  font-size: 0.95em;
+  display: inline-block;
+  margin-top: 4px;
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תלוש עובד קבלן</title>
+
+  <!-- עיצוב -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="contractor-employee.css" />
+
+  <!-- OpenCV -->
+  <script async src="https://docs.opencv.org/4.5.5/opencv.js"></script>
+
+  <!-- PDF.js -->
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.8.162/build/pdf.js"></script>
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.8.162/build/pdf.worker.js';
+  </script>
+</head>
+<body>
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+    <button class="glossary-nav" onclick="window.location.href='glossary.html'">📘 מילון מונחים</button>
+  </div>
+
+  <h1>📋 פירוט תלוש עובד קבלן</h1>
+  <div id="tables-container" class="table-grid"></div>
+
+  <!-- הסקריפט הראשי -->
+  <script type="module" src="contractor-employee.js"></script>
+</body>
+</html>

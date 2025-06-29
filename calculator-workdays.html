@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>מחשבון מספר ימי עבודה בחודש</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" class="nav-button">←</a>
+    <a href="index.html" class="nav-button">🏠</a>
+  </div>
+
+  <h1>מספר ימי עבודה בחודש</h1>
+
+  <form id="form">
+    <label for="monthInput">בחר חודש ושנה:</label>
+    <input type="month" id="monthInput" required>
+
+    <button type="submit">חשב</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-workdays.js"></script>
+</body>
+</html>

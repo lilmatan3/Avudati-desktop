@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>תלוש שכר לדוגמה</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f2f7ff;
+      direction: rtl;
+      color: #333;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #000;
+      padding-bottom: 10px;
+    }
+
+    .section-title {
+      background-color: #eef2f9;
+      padding: 8px;
+      margin-top: 25px;
+      font-weight: bold;
+      border-bottom: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      margin-bottom: 25px;
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 6px 10px;
+      text-align: right;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .total-row {
+      font-weight: bold;
+      background-color: #f9f9f9;
+    }
+
+    .footer-note {
+      font-size: 0.85em;
+      color: #444;
+      margin-top: 30px;
+      border-top: 1px dashed #aaa;
+      padding-top: 10px;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      text-decoration: none;
+      background-color: #e0e0e0;
+      padding: 8px 16px;
+      border-radius: 8px;
+      color: #000;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #d0d0d0;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="paystub.html" class="back-button">← חזרה</a>
+
+  <h1>תלוש שכר לדוגמה – חודש <span id="monthYearTitle">--/----</span></h1>
+
+  <!-- 💼 רכיבי שכר -->
+  <div class="section-title">💼 רכיבי שכר</div>
+  <table>
+    <tr><th>רכיב</th><th>כמות</th><th>סכום</th></tr>
+    <tr><td>שעות רגילות</td><td>---</td><td>₪---</td></tr>
+    <tr><td>שעות נוספות</td><td>---</td><td>₪---</td></tr>
+    <tr><td>שעות שישי 125%</td><td>---</td><td>₪---</td></tr>
+    <tr><td>שעות שישי 150%</td><td>---</td><td>₪---</td></tr>
+    <tr><td>שעות שבת</td><td>---</td><td>₪---</td></tr>
+    <tr><td>שעות חג</td><td>---</td><td>₪---</td></tr>
+    <!-- כאן תתווספנה שורות של תוספות קבועות וחד פעמיות מהברוטו/נטו -->
+    <tr class="total-row"><td colspan="2">סה״כ ברוטו</td><td>₪---</td></tr>
+  </table>
+
+  <!-- 📉 ניכויים -->
+  <div class="section-title">📉 ניכויים</div>
+  <table>
+    <tr><th>רכיב</th><th>סכום</th></tr>
+    <tr><td>מס הכנסה</td><td>₪---</td></tr>
+    <tr><td>ביטוח לאומי</td><td>₪---</td></tr>
+    <tr><td>ביטוח בריאות</td><td>₪---</td></tr>
+    <tr><td>פנסיה (עובד)</td><td>₪---</td></tr>
+    <tr><td>השתלמות (עובד)</td><td>₪---</td></tr>
+    <tr><td>הורדת שווי ארוחות</td><td>₪---</td></tr>
+    <!-- כאן תתווספנה שורות של הורדות נוספות -->
+    <tr class="total-row"><td>סה״כ ניכויים</td><td>₪---</td></tr>
+  </table>
+
+  <!-- 💰 שכר נטו -->
+  <div class="section-title">💰 שכר נטו</div>
+  <table>
+    <tr><td>סה״כ לתשלום</td><td>₪---</td></tr>
+  </table>
+
+  <!-- 🏦 הפרשות המעסיק -->
+  <div class="section-title">🏦 הפרשות המעסיק</div>
+  <table>
+    <tr><td>פנסיה (מעביד)</td><td>₪---</td></tr>
+    <tr><td>השתלמות (מעביד)</td><td>₪---</td></tr>
+    <tr><td>פיצויים</td><td>₪---</td></tr>
+  </table>
+
+  <!-- 📝 הערה בסוף -->
+  <div class="footer-note">
+    * תלוש זה הינו לצרכי הדמיה בלבד ואינו מהווה מסמך שכר רשמי.  
+    כל הערכים המחושבים מבוססים על נתוני שכר, חוקי המס ונתוני קלט מהמשתמש.
+  </div>
+
+  <script src="dataService.js"></script>
+  <script src="final.js"></script>
+</body>
+</html>

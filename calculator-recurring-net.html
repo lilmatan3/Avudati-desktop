@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>נטו בתשלום חוזר</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" title="חזרה">←</a>
+    <a href="index.html"      title="בית">🏠</a>
+  </div>
+
+  <h1>נטו בתשלום חוזר</h1>
+  <form id="form">
+    <div>
+      <label for="annualGross">הכנסה שנתית ברוטו (₪)</label>
+      <input
+        type="number"
+        id="annualGross"
+        placeholder="למשל 120000"
+        required
+        min="0"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="taxRate">אחוז מס הכנסה (%)</label>
+      <input
+        type="number"
+        id="taxRate"
+        placeholder="למשל 20"
+        required
+        min="0"
+        max="100"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="niRate">אחוז ביטוח לאומי (%)</label>
+      <input
+        type="number"
+        id="niRate"
+        placeholder="למשל 3.5"
+        required
+        min="0"
+        max="100"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="healthRate">אחוז מס בריאות (%)</label>
+      <input
+        type="number"
+        id="healthRate"
+        placeholder="למשל 5"
+        required
+        min="0"
+        max="100"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="frequency">תדירות תשלום</label>
+      <select id="frequency" required>
+        <option value="12">חודשי (12)</option>
+        <option value="26">דו‑שבועי (26)</option>
+        <option value="52">שבועי (52)</option>
+        <option value="365">יומי (365)</option>
+      </select>
+    </div>
+    <button type="submit">חשב נטו לתשלום</button>
+  </form>
+
+  <div id="result"></div>
+  <script src="calculator-recurring-net.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>מחשבון נקודות זיכוי</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <!-- כפתור חזרה לעמוד המחשבונים הראשי -->
+    <a href="calculators.html" class="nav-button">←</a>
+    <!-- כפתור בית -->
+    <a href="index.html" class="nav-button">🏠</a>
+  </div>
+
+  <h1>מחשבון נקודות זיכוי</h1>
+
+  <form id="form">
+    <label for="creditPoints">הכנס מספר נקודות זיכוי:</label>
+    <input type="number" id="creditPoints" placeholder="נקודות זיכוי" required>
+    <button type="submit">חשב</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-taxpoints.js"></script>
+</body>
+</html>

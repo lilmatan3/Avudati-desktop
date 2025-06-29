@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>פירוק תלוש</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="paycheck-details.css" />
+
+  <!-- PDF.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+  <script>
+    window.pdfjsLib = window['pdfjs-dist/build/pdf'];
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+  </script>
+  <style>
+    .type-confirm-box {
+      background: #fff3f8;
+      border: 2px solid #ffb4d4;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    }
+
+    .confirm-buttons button,
+    .type-option {
+      background-color: #ff6fa7;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      margin: 5px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .type-options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="top-nav">
+    <a href="paycheck-library.html">←</a>
+    <a href="index.html">🏠</a>
+  </div>
+
+  <h1>📄 ניתוח תלוש</h1>
+
+  <!-- חלונית זיהוי סוג תלוש -->
+  <div id="payslip-type-confirmation" class="type-confirm-box" style="display:none;">
+    <h2 id="type-detected-text"></h2>
+    <p>האם זה סוג התלוש שלך?</p>
+    <div class="confirm-buttons">
+      <button id="confirm-yes">כן</button>
+      <button id="confirm-no">לא</button>
+    </div>
+
+    <div id="manual-type-options" style="display:none;">
+      <p>אנא בחר את סוג התלוש שלך:</p>
+      <div class="type-options">
+        <button class="type-option" data-type="עובד הוראה">🧑‍🏫 עובד הוראה</button>
+        <button class="type-option" data-type="עובד שירות">🛎️ עובד שירות</button>
+        <button class="type-option" data-type="עובד ציבור">🧑‍💼 עובד ציבור</button>
+        <button class="type-option" data-type="AM PROJECTS">🏗️ עובד פרויקט / קבלן</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- טבלאות ניתוח -->
+  <div id="tables-container" class="table-grid">
+    <p style="text-align:center;">(כאן נופיע הטבלאות מה-PDF)</p>
+  </div>
+
+  <!-- קובץ JS הראשי -->
+  <script type="module" src="paycheck-details-pdf.js"></script>
+</body>
+</html>

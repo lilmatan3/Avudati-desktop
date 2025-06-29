@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>תשואה שנתית ממוצעת (CAGR)</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" title="חזרה">←</a>
+    <a href="index.html"      title="בית">🏠</a>
+  </div>
+
+  <h1>תשואה שנתית ממוצעת (CAGR)</h1>
+  <form id="form">
+    <div>
+      <label for="start">ערך התחלתי</label>
+      <input type="number" id="start" placeholder="הכנס ערך התחלתי" required min="0" step="0.01">
+    </div>
+    <div>
+      <label for="end">ערך סופי</label>
+      <input type="number" id="end" placeholder="הכנס ערך סופי" required min="0" step="0.01">
+    </div>
+    <div>
+      <label for="years">מספר שנים</label>
+      <input type="number" id="years" placeholder="למשל 3" required min="0.1" step="0.1">
+    </div>
+    <button type="submit">חשב תשואה</button>
+  </form>
+  <div id="result"></div>
+  <script src="calculator-average-return.js"></script>
+</body>
+</html>

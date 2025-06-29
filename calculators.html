@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>מחשבונים</title>
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- סגנונות בסיסיים לטאבים -->
+  <style>
+    .back-home {
+      display: flex;
+      justify-content: flex-start;
+      gap: 10px;
+      margin: 20px;
+    }
+    .tabs {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 20px 0;
+    }
+    .tab-button {
+      padding: 10px 20px;
+      background: #e0e0e0;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .tab-button.active {
+      background: #0047ab;
+      color: #fff;
+    }
+    .tab-content {
+      display: none;
+      padding: 0 20px 40px;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .tab-content h2 {
+      margin-top: 0;
+      color: #0047ab;
+    }
+    .calculator-list {
+      list-style: none;
+      padding: 0;
+    }
+    .calculator-list li {
+      margin: 8px 0;
+    }
+    .calculator-list li a {
+      text-decoration: none;
+      color: #007bff;
+      font-size: 1.1em;
+    }
+    .calculator-list li a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="back-home">
+    <a href="index.html" class="back-button">← חזרה</a>
+    <a href="index.html" class="home-button">🏠 בית</a>
+  </div>
+
+  <h1 class="subheader" style="text-align:center">מחשבונים</h1>
+
+  <!-- כפתורי הטאבים -->
+  <div class="tabs">
+    <button class="tab-button active" data-tab="tab-salary">שכר וזכויות</button>
+    <button class="tab-button" data-tab="tab-taxes">מיסים ופקמ</button>
+    <button class="tab-button" data-tab="tab-invest">השקעות ופיננסים</button>
+    <button class="tab-button" data-tab="tab-saving">חסכון ופנסיה</button>
+    <button class="tab-button" data-tab="tab-time">כללי – יומי ושעות</button>
+    <button class="tab-button" data-tab="tab-tools">כלים תומכים</button>
+  </div>
+
+  <!-- תוכן כל טאבים -->
+  <div id="tab-salary" class="tab-content active">
+    <h2>שכר וזכויות</h2>
+    <ul class="calculator-list">
+      <li><a href="calculator-bruto-neto.html">המרת ברוטו → נטו</a></li>
+      <li><a href="calculator-neto-bruto.html">המרת נטו → ברוטו</a></li>
+      <li><a href="calculator-overtime.html">חישוב שעות נוספות (125%, 150%)</a></li>
+      <li><a href="calculator-leave-offset.html">קיזוז שעות חופשה/מחלה</a></li>
+      <li><a href="calculator-severance.html">חישוב פיצויי פיטורין</a></li>
+      <li><a href="calculator-taxpoints.html">מחשבון נקודות זיכוי</a></li>
+      <li><a href="calculator-settlement-discount.html">הנחת מס יישוב מזכה</a></li>
+    </ul>
+  </div>
+
+  <div id="tab-taxes" class="tab-content">
+    <h2>מיסים ופקמ</h2>
+    <ul class="calculator-list">
+      <li><a href="calculator-income-tax.html">מס הכנסה (כולל נקודות זיכוי)</a></li>
+      <li><a href="calculator-social-health.html">ביטוח לאומי ומס בריאות</a></li>
+      <li><a href="calculator-pensia-interest.html">חישוב פקמ (קרן השתלמות) וריבית דריבית</a></li>
+      <li><a href="calculator-pensia-planning.html">תכנון הפקדות לקרן השתלמות</a></li>
+    </ul>
+  </div>
+
+  <div id="tab-invest" class="tab-content">
+    <h2>השקעות ופיננסים</h2>
+    <ul class="calculator-list">
+      <li><a href="calculator-compound-interest.html">ריבית דריבית (קבועה/משתנה)</a></li>
+      <li><a href="calculator-average-return.html">תשואה שנתית ממוצעת</a></li>
+      <li><a href="calculator-loan.html">הלוואה: תשלום חודשי וריבית אפקטיבית</a></li>
+      <li><a href="calculator-mortgage.html">משכנתא: טבלת שפיצר / גרייס</a></li>
+      <li><a href="calculator-cashflow.html">תזרים מזומנים לפרוייקט השקעה</a></li>
+      <li><a href="calculator-dividend.html">חישוב שיעור דיבידנד</a></li>
+    </ul>
+  </div>
+
+  <div id="tab-saving" class="tab-content">
+    <h2>חסכון ופנסיה</h2>
+    <ul class="calculator-list">
+      <li><a href="calculator-pension-estimate.html">חישוב קצבת זקנה משוערת</a></li>
+      <li><a href="calculator-pension-contrib.html">הפקדה חודשית לקבלת קצבה רצויה</a></li>
+      <li><a href="calculator-employer-employee-pension.html">השוואת הפקדה: מעסיק מול עובד</a></li>
+    </ul>
+  </div>
+
+  <div id="tab-time" class="tab-content">
+    <h2>כללי – יומי ושעות</h2>
+    <ul class="calculator-list">
+      <li><a href="calculator-workdays.html">מספר ימי עבודה בחודש</a></li>
+      <li><a href="calculator-hourly-rate.html">תעריף שעה לפי שכר חודשי</a></li>
+      <li><a href="calculator-optimal-hours.html">שעות עבודה אופטימליות להכנסה יעד</a></li>
+      <li><a href="calculator-time-converter.html">המרת זמן (דקות ↔ שעות)</a></li>
+    </ul>
+  </div>
+
+  <div id="tab-tools" class="tab-content">
+    <h2>כלים תומכים</h2>
+    <ul class="calculator-list">
+      <li><a href="calculator-currency.html">המרת מטבע</a></li>
+      <li><a href="calculator-inflation.html">מדד המחירים לצרכן (אינפלציה)</a></li>
+      <li><a href="calculator-effective-tax-rate.html">חישוב שיעור מס ממוצע</a></li>
+      <li><a href="calculator-recurring-net.html">נטו בתשלום חוזר</a></li>
+    </ul>
+  </div>
+
+  <!-- סקריפט לטיפול במעבר בין טאבים -->
+  <script>
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // עדכון כפתור פעיל
+        tabButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // הצגת התוכן המתאים והסתרת שאר התוכן
+        const target = btn.getAttribute('data-tab');
+        tabContents.forEach(tc => {
+          tc.id === target
+            ? tc.classList.add('active')
+            : tc.classList.remove('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>

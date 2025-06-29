@@ -1,0 +1,105 @@
+/* === בסיס כללי === */
+body {
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #e0e0e0;
+}
+
+.top-nav a {
+  font-size: 22px;
+  text-decoration: none;
+  color: #333;
+}
+
+h1 {
+  margin: 20px 0;
+  font-size: 24px;
+}
+
+video, canvas, img {
+  max-width: 95%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 15px;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 10px 5px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+/* === כפתורים רגילים === */
+#startBtn              { background-color: #2196f3; }
+#captureBtn            { background-color: #4caf50; }
+#retryBtn              { background-color: #f44336; }
+#saveBtn               { background-color: #4caf50; }
+#downloadToDeviceBtn   { background-color: #607d8b; }
+#editBtn               { background-color: #ff9800; }
+#cropBtn               { background-color: #9c27b0; }
+
+/* === כפתורים לחיתוך === */
+#cropControls {
+  margin-top: 15px;
+  display: none;
+}
+
+#applyCropBtn {
+  background-color: #4caf50;
+}
+
+#cancelCropBtn {
+  background-color: #f44336;
+}
+
+#actions {
+  margin-top: 10px;
+  display: none;
+}
+
+/* === עורך תמונה === */
+#editor {
+  margin-top: 20px;
+  background-color: #fff;
+  padding: 15px;
+  display: none;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  width: 95%;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#editor h3 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+#editor label {
+  display: block;
+  margin: 10px 0 5px;
+  font-weight: bold;
+}
+
+#editor input[type="range"] {
+  width: 100%;
+}
+
+#applyEditBtn { background-color: #4caf50; }
+#cancelEditBtn { background-color: #f44336; }

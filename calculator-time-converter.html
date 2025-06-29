@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>מחשבון המרת זמן (דקות ↔ שעות)</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" class="nav-button">←</a>
+    <a href="index.html" class="nav-button">🏠</a>
+  </div>
+
+  <h1>המרת זמן (דקות ↔ שעות)</h1>
+
+  <form id="form">
+    <div class="radio-group">
+      <label>
+        <input type="radio" name="direction" value="toHours" checked>
+        דקות → שעות
+      </label>
+      <label>
+        <input type="radio" name="direction" value="toMinutes">
+        שעות → דקות
+      </label>
+    </div>
+
+    <input 
+      type="number" 
+      id="timeInput" 
+      placeholder="הכנס ערך" 
+      required 
+      step="any"
+    >
+
+    <button type="submit">חשב</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script src="calculator-time-converter.js"></script>
+</body>
+</html>

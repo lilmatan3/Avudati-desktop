@@ -1,0 +1,130 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f2f7ff;
+  direction: rtl;
+  color: #333;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #34495e;
+  margin-bottom: 20px;
+}
+
+h2 {
+  background-color: #6c63ff;
+  color: #ffffff;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.section {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-bottom: 25px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.row input[type="number"],
+.row input[type="text"],
+.row input[type="date"] {
+  flex: 2;
+  padding: 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+}
+
+.row span {
+  flex: 1;
+  font-weight: bold;
+}
+
+.row button {
+  background-color: #6c63ff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.row button:hover {
+  background-color: #574fcf;
+}
+
+.back-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 1.4em;
+  color: #34495e;
+  text-decoration: none;
+}
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.2);
+  width: 80%;
+  max-width: 380px;
+  z-index: 100;
+}
+
+.popup-content {
+  position: relative;
+}
+
+.close-popup {
+  position: absolute;
+  top: 5px;
+  left: 8px;
+  border: none;
+  background-color: transparent;
+  font-size: 1em;
+  cursor: pointer;
+  color: #999;
+}
+
+.close-popup:hover {
+  color: #333;
+}
+
+/* התאמה למובייל */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .row button {
+    margin-top: 6px;
+    width: 100%;
+  }
+
+  .back-button {
+    font-size: 1.2em;
+    top: 15px;
+    right: 15px;
+  }
+}

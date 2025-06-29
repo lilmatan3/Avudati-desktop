@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>חישוב שיעור דיבידנד</title>
+  <link rel="stylesheet" href="calculator.css">
+</head>
+<body>
+  <!-- ניווט עליון -->
+  <div class="top-nav">
+    <a href="calculators.html" title="חזרה">←</a>
+    <a href="index.html"      title="בית">🏠</a>
+  </div>
+
+  <h1>חישוב שיעור דיבידנד</h1>
+  <form id="form">
+    <div>
+      <label for="dividend">דיבידנד שנתי למניה (₪)</label>
+      <input
+        type="number"
+        id="dividend"
+        placeholder="למשל 5"
+        required
+        min="0"
+        step="0.01"
+      >
+    </div>
+    <div>
+      <label for="price">מחיר מניה נוכחי (₪)</label>
+      <input
+        type="number"
+        id="price"
+        placeholder="למשל 100"
+        required
+        min="0"
+        step="0.01"
+      >
+    </div>
+    <button type="submit">חשב שיעור</button>
+  </form>
+
+  <div id="result"></div>
+  <script src="calculator-dividend.js"></script>
+</body>
+</html>

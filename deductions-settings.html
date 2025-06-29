@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הורדות והוספות</title>
+  <link rel="stylesheet" href="deductions-settings.css" />
+</head>
+<body>
+  <div class="header-bar">
+    <button class="back-button" onclick="window.location.href='salary-structure.html'">→</button>
+    <div class="header-title">הורדות והוספות</div>
+  </div>
+
+  <!-- הורדות קבועות -->
+  <div class="section">
+    <h2>הורדות קבועות</h2>
+
+    <div class="row">
+      <span>הוצאה על רכב:</span>
+      <div class="help-container">
+        <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        <div class="help-popup">ניכוי על שימוש ברכב לצורכי עבודה או רכב חברה.</div>
+      </div>
+      <input type="number" id="carExpense">
+      <button onclick="addToTable('הוצאה קבועה', 'רכב', carExpense.value); carExpense.value = ''">הוספה</button>
+    </div>
+
+    <div class="row">
+      <span>הוצאה על ביטוח:</span>
+      <div class="help-container">
+        <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        <div class="help-popup">ניכוי בגין ביטוחים פרטיים.</div>
+      </div>
+      <input type="number" id="insuranceExpense">
+      <button onclick="addToTable('הוצאה קבועה', 'ביטוח', insuranceExpense.value); insuranceExpense.value = ''">הוספה</button>
+    </div>
+
+    <div class="row">
+      <span>אחר:</span>
+      <div class="help-container">
+        <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        <div class="help-popup">הוצאה שאינה מוגדרת – לדוגמה הלוואה או ציוד אישי.</div>
+      </div>
+      <span>תיאור:</span>
+      <input type="text" id="otherFixedExpenseDesc">
+      <span>סכום:</span>
+      <input type="number" id="otherFixedExpenseAmount">
+      <button onclick="addToTable('הוצאה קבועה', otherFixedExpenseDesc.value, otherFixedExpenseAmount.value); otherFixedExpenseDesc.value = ''; otherFixedExpenseAmount.value = ''">הוספה</button>
+    </div>
+
+    <div id="list-הוצאה קבועה"></div>
+    <div class="row total-row">סה"כ הורדות קבועות: <span id="sum-הוצאה קבועה">0 ₪</span></div>
+  </div>
+
+  <!-- הורדות חד פעמיות -->
+  <div class="section">
+    <h2>הורדות חד פעמיות</h2>
+    <div class="row">
+      <span>תיאור:</span>
+      <input type="text" id="oneTimeDesc">
+      <span>סכום:</span>
+      <input type="number" id="oneTimeAmount">
+      <button onclick="addToTable('הוצאה חד פעמית', oneTimeDesc.value, oneTimeAmount.value); oneTimeDesc.value = ''; oneTimeAmount.value = ''">הוספה</button>
+    </div>
+    <div id="list-הוצאה חד פעמית"></div>
+    <div class="row total-row">סה"כ חד פעמי: <span id="sum-הוצאה חד פעמית">0 ₪</span></div>
+  </div>
+
+  <!-- הוספות קבועות -->
+  <div class="section">
+    <h2>הוספות קבועות</h2>
+
+    <div class="row">
+      <span>בונוס:</span>
+      <div class="help-container">
+        <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        <div class="help-popup">בונוס חודשי קבוע.</div>
+      </div>
+      <input type="number" id="bonusIncome">
+      <button onclick="addToTable('הוספה קבועה', 'בונוס', bonusIncome.value); bonusIncome.value = ''">הוספה</button>
+    </div>
+
+    <div class="row">
+      <span>נסיעות:</span>
+      <div class="help-container">
+        <span class="help-icon" onclick="toggleHelp(this)">?</span>
+        <div class="help-popup">החזר הוצאות נסיעה לעבודה.</div>
+      </div>
+      <input type="number" id="travelIncome">
+      <button onclick="addToTable('הוספה קבועה', 'נסיעות', travelIncome.value); travelIncome.value = ''">הוספה</button>
+    </div>
+
+    <div class="row">
+      <span>אחר:</span>
+      <span>תיאור:</span>
+      <input type="text" id="otherFixedIncomeDesc">
+      <span>סכום:</span>
+      <input type="number" id="otherFixedIncomeAmount">
+      <button onclick="addToTable('הוספה קבועה', otherFixedIncomeDesc.value, otherFixedIncomeAmount.value); otherFixedIncomeDesc.value = ''; otherFixedIncomeAmount.value = ''">הוספה</button>
+    </div>
+
+    <div id="list-הוספה קבועה"></div>
+    <div class="row total-row">סה"כ הוספות קבועות: <span id="sum-הוספה קבועה">0 ₪</span></div>
+  </div>
+
+  <!-- הוספות חד פעמיות -->
+  <div class="section">
+    <h2>הוספות חד פעמיות</h2>
+    <div class="row">
+      <span>תיאור:</span>
+      <input type="text" id="oneTimeIncomeDesc">
+      <span>סכום:</span>
+      <input type="number" id="oneTimeIncomeAmount">
+      <button onclick="addToTable('הוספה חד פעמית', oneTimeIncomeDesc.value, oneTimeIncomeAmount.value); oneTimeIncomeDesc.value = ''; oneTimeIncomeAmount.value = ''">הוספה</button>
+    </div>
+    <div id="list-הוספה חד פעמית"></div>
+    <div class="row total-row">סה"כ הוספות חד פעמיות: <span id="sum-הוספה חד פעמית">0 ₪</span></div>
+  </div>
+
+  <!-- טבלת כלל ההוצאות וההכנסות -->
+  <div class="section">
+    <h2>רשימת הוצאות והכנסות</h2>
+    <table id="transactionsTable">
+      <thead>
+        <tr>
+          <th>סוג</th>
+          <th>תיאור</th>
+          <th>סכום</th>
+          <th>מקור</th>
+          <th>הסר</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div class="row total-row">סה"כ כולל: <span id="tableTotal">0 ₪</span></div>
+  </div>
+
+  <!-- פופאפ ברוטו/נטו -->
+ <div id="sourcePopup" style="display: none;">
+    <p>בחר/י האם ההוספה/ההוצאה היא מהברוטו או מהנטו:</p>
+    <button id="btnGross">מהברוטו</button>
+    <button id="btnNet">מהנטו</button>
+    <button id="btnCancel">ביטול</button>
+  </div>
+
+  <!-- הסקריפטים תמיד בסוף הדף -->
+  <script src="dataService.js"></script>
+  <script src="deductions-settings.js"></script>
+</body>
+</html>
